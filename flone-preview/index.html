@@ -1,0 +1,646 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Flone - React Minimalist eCommerce Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="p2/img/favicon.ico">
+    <!-- All CSS Files -->
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="p2/css/bootstrap.min.css">
+    <!-- Icon Font -->
+    <link rel="stylesheet" href="p2/css/font-awesome.min.css">
+    <link rel="stylesheet" href="p2/css/et-line.css">
+    <!-- Plugins css file -->
+    <link rel="stylesheet" href="p2/css/plugins.css">
+    <!-- Theme main style -->
+    <link rel="stylesheet" href="p2/style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="p2/css/responsive.css">
+    <!-- Modernizr JS -->
+    <script src="p2/js/vendor/modernizr-2.8.3.min.js"></script>
+	
+	
+	
+	
+	<style type="text/css">
+        .also-like .demo-item .title {
+            line-height: 28px;
+        }
+        .stick .logo a {
+            width: 103px;
+        }
+		.buy-btn.top-btn {
+		  background-color: #a749ff;
+		  border-color: #a749ff;
+		}
+		.buy-btn:hover {
+		  background-color: #a749ff;
+		  border-color: #a749ff;
+            color: #ddd;
+		}
+		.demo-item .image::after {
+			background-color: #a749ff;
+		}
+		.demo-item .image i:hover {
+			color: #a749ff;
+		}
+		.stick .buy-btn.top-btn {
+		  border: 2px solid #a749ff;
+		  color: #fff;
+		}
+		.stick .buy-btn {
+		  border: 2px solid #a749ff;
+		  color: #a749ff;
+		}
+		.single-feature .icon {
+			color: #a749ff;
+		}
+		.footer-section {
+		 background-color: #444;
+		}
+		.stick .buy-btn:hover {
+			color: #ddd;
+		}
+		.demo-item .title a:hover {
+			color: #a749ff;
+		}
+		.footer-section .buy-btn:hover {
+			color: #a749ff;
+		}
+		.footer-section .buy-btn.bottom-btn {
+			color: #fff;
+            background-color: #a749ff;
+            border: 2px solid #a749ff;
+		}
+		.hero-content h1 {
+			text-transform: capitalize;
+		}
+        .stick .non-sticky {
+          display: none;
+        }
+        .demo-item {
+          box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+        }
+        .demo-item .title {
+          padding: 20px 0;
+            margin: 0;
+        }
+        .hero-content h1 {
+            font-size: 33px;
+            text-transform: inherit;
+        }
+        .single-feature .content h4 {
+          line-height: 16px;
+        }
+        .logo {
+          padding: 0;
+        }
+        .stick .logo a .sticky-logo {
+            margin-top: 7px;
+        }
+        .hero-section.overlay::before {
+            opacity: 0.4;
+        }
+		.hero-section {
+		  padding: 300px 0 400px;
+		}
+        .stick .buy-btn {
+            margin-top: 0;
+        }
+        .demo-item {
+            overflow: hidden;
+            position: relative;
+        }
+        .demo-item span.new {
+            background-color: #df2121;
+            border: 0 none;
+            color: #fff;
+            display: block;
+            font-weight: bold;
+            left: -33px;
+            margin: 0;
+            padding: 9px 0 7px;
+            position: absolute;
+            text-align: center;
+            text-shadow: 1px 1px rgba(0, 0, 0, 0.24);
+            text-transform: uppercase;
+            top: 10px;
+            transform: rotate(-45deg);
+            width: 131px;
+            z-index: 1;
+            opacity: 1;
+        }
+		@media (min-width: 1200px) and (max-width: 1400px) {
+			.hero-section {
+			  padding: 250px 0 200px;
+			}
+		}
+		@media (min-width: 992px) and (max-width: 1200px) {
+			.hero-section {
+			  padding: 250px 0 200px;
+			}
+		}
+		@media (min-width: 768px) and (max-width: 991px){
+			.footer-section h1 {
+			  line-height: 40px;
+			}
+			.hero-section {
+			  padding: 200px 0 200px;
+			}
+		}
+		@media (max-width: 767px) {
+			.hero-section {
+			  padding: 150px 0 100px;
+			}
+			.footer-section h1 {
+			  line-height: 40px;
+			}
+            .hero-content h1 {
+                font-size: 25px;
+                line-height: 40px;
+                text-transform: inherit;
+            }
+            .stick .logo a .sticky-logo {
+                margin-top: 0;
+            }
+            
+            
+		}
+		
+		
+	</style>
+	
+	
+</head>
+
+<body>
+
+<!-- Start Header Section -->
+<div class="header-section section sticker">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- Logo -->
+                <div class="logo float-left">
+                    <a class="non-sticky" href="/"><img src="p2/img/flone/logo-white.png" alt=""></a>
+                    <a href="/"><img src="p2/img/flone/logo.png" alt="" class="sticky-logo"></a>
+                </div>
+                <!-- Logo -->
+                <div class="float-right">
+                    <a class="buy-btn top-btn" href="#">buy Flone</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header Section End -->
+
+<!-- Start Hero Section -->
+<div class="hero-section section overlay" style="background-image: url('p2/img/flone/hero-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="hero-content text-center col-xs-12">
+                <h1><strong>Flone</strong> React Minimalist eCommerce Template</h1>
+                <a class="buy-btn" href="#demo">View Demo</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hero Section End -->
+
+<!-- Start Demo Section -->
+<div id="demo" class="demo-section section pt-120 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="section-style">
+                <div class="section-title col-xs-12 mb-70">
+                    <h1>Home page Layouts.</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/home-fashion" class="image" target="_blank"><img src="p2/img/flone/hm1.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/home-fashion" target="_blank">Home - Fashion</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/home-electronics" class="image" target="_blank"><img src="p2/img/flone/hm2.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/home-electronics" target="_blank">Home - Electronics</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/home-furniture" class="image" target="_blank"><img src="p2/img/flone/hm3.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/home-furniture" target="_blank">Home - Furniture</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/home-plants" class="image" target="_blank"><img src="p2/img/flone/hm4.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/home-plants" target="_blank">Home - Plants</a></h4>
+                </div>
+            </div>
+       
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/home-organic-food" class="image" target="_blank"><img src="p2/img/flone/hm5.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/home-organic-food" target="_blank">Home - Organic Food</a></h4>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="demo-section section pt-120 pb-70  bg-gray">
+    <div class="container">
+        <div class="row">
+            <div class="section-style">
+                <div class="section-title col-xs-12 mb-70">
+                    <h1>Shop Layouts.</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/shop-grid-standard" class="image" target="_blank"><img src="p2/img/flone/shop-grid-standard.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/shop-grid-standard" target="_blank">Grid Standard</a></h4>
+                </div>
+            </div>
+			
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/shop-grid-filter" class="image" target="_blank"><img src="p2/img/flone/shop-grid-filter.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/shop-grid-filter" target="_blank">Grid Filter</a></h4>
+                </div>
+            </div>
+			
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/shop-grid-two-column" class="image" target="_blank"><img src="p2/img/flone/shop-grid-two-column.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/shop-grid-two-column" target="_blank">Grid Two Column</a></h4>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/shop-grid-no-sidebar" class="image" target="_blank"><img src="p2/img/flone/shop-grid-no-sidebar.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/shop-grid-no-sidebar" target="_blank">Grid No Sidebar</a></h4>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/shop-grid-full-width" class="image" target="_blank"><img src="p2/img/flone/shop-grid-fullwidth.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/shop-grid-full-width" target="_blank">Grid Full Width </a></h4>
+                </div>
+            </div>
+			
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/shop-grid-right-sidebar" class="image" target="_blank"><img src="p2/img/flone/shop-grid-right-sidebar.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/shop-grid-right-sidebar" target="_blank">Grid Right Sidebar</a></h4>
+                </div>
+            </div>
+			
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/shop-list-standard" class="image" target="_blank"><img src="p2/img/flone/shop-list-standard.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/shop-list-standard" target="_blank">List Standard  </a></h4>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/shop-list-full-width" class="image" target="_blank"><img src="p2/img/flone/shop-list-fullwidth.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/shop-list-full-width" target="_blank">List Full Width </a></h4>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/shop-list-two-column" class="image" target="_blank"><img src="p2/img/flone/shop-list-two-column.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/shop-list-two-column" target="_blank">List Two Column</a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="demo-section section pt-120 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="section-style">
+                <div class="section-title col-xs-12 mb-70">
+                    <h1>Product Detail Layouts.</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/product/1" class="image" target="_blank"><img src="p2/img/flone/product-tab-bottom.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/product/1" target="_blank">Tab Bottom Style</a></h4>
+                </div>
+            </div>
+			
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/product-tab-left/1" class="image" target="_blank"><img src="p2/img/flone/product-tab-left.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/product-tab-left/1" target="_blank">Tab Left Style</a></h4>
+                </div>
+            </div>
+			
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/product-tab-right/1" class="image" target="_blank"><img src="p2/img/flone/product-tab-right.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/product-tab-right/1" target="_blank">Tab Right Style</a></h4>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/product-sticky/1" class="image" target="_blank"><img src="p2/img/flone/product-sticky.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/product-sticky/1" target="_blank">Sticky Style</a></h4>
+                </div>
+            </div>
+			
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/product-slider/1" class="image" target="_blank"><img src="p2/img/flone/product-slider.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/product-slider/1" target="_blank">Slider style</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/product-fixed-image/1" class="image" target="_blank"><img src="p2/img/flone/product-fixed-image.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/product-fixed-image/1" target="_blank">Fixed Image Style  </a></h4>
+                </div>
+            </div>
+			
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/product/8" class="image" target="_blank"><img src="p2/img/flone/product-simple.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/product/8" target="_blank">Simple Style</a></h4>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/product/1" class="image" target="_blank"><img src="p2/img/flone/product-variation.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/product/1" target="_blank">Variation Style</a></h4>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/product/9" class="image" target="_blank"><img src="p2/img/flone/product-affiliate.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/product/9" target="_blank">Affiliate Style</a></h4>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<div class="demo-section section pt-120 pb-70  bg-gray">
+    <div class="container">
+        <div class="row">
+            <div class="section-style">
+                <div class="section-title col-xs-12 mb-70">
+                    <h1>Blog Layouts.</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/blog-standard" class="image" target="_blank"><img src="p2/img/flone/blog-standard.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/blog-standard" target="_blank">Blog Standard</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/blog-no-sidebar" class="image" target="_blank"><img src="p2/img/flone/blog-no-sidebar.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/blog-no-sidebar" target="_blank">Blog No Sidebar</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/blog-right-sidebar" class="image" target="_blank"><img src="p2/img/flone/blog-right-sidebar.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/blog-right-sidebar" target="_blank">Blog Right Sidebar</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/blog-details-standard" class="image" target="_blank"><img src="p2/img/flone/blog-details-standard.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/blog-details-standard" target="_blank">Blog Details Standard</a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="demo-section section pt-120 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="section-style">
+                <div class="section-title col-xs-12 mb-70">
+                    <h1>Other Page Layouts.</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/cart" class="image" target="_blank"><img src="p2/img/flone/cart.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/cart" target="_blank">Cart</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/checkout" class="image" target="_blank"><img src="p2/img/flone/checkout.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/checkout" target="_blank">Checkout</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/wishlist" class="image" target="_blank"><img src="p2/img/flone/wishlist.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/wishlist" target="_blank">Wishlist</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/compare" class="image" target="_blank"><img src="p2/img/flone/compare.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/compare" target="_blank">Compare</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/my-account" class="image" target="_blank"><img src="p2/img/flone/my-account.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/my-account" target="_blank">My Account</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/login-register" class="image" target="_blank"><img src="p2/img/flone/login.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/login-register" target="_blank">Login Register</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/about" class="image" target="_blank"><img src="p2/img/flone/about.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/about" target="_blank">About Us</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/contact" class="image" target="_blank"><img src="p2/img/flone/contact.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/contact" target="_blank">Contact Us</a></h4>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-12 mb-50">
+                <div class="demo-item">
+                    <a href="http://themesmummy.com/flone/not-found" class="image" target="_blank"><img src="p2/img/flone/not-found.jpg" alt=""><i class="fa fa-long-arrow-right"></i></a>
+                    <h4 class="title"><a href="http://themesmummy.com/flone/not-found" target="_blank">Not Found</a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Start Hero Section -->
+<div class="feature-section section pt-150 pb-100 bg-gray">
+    <div class="container">
+        <div class="row">
+            <div class="section-title col-xs-12 mb-70">
+                <h1>Flone Feature</h1>
+            </div>
+
+            <div class="single-feature col-md-4 col-sm-6 col-xs-12 mb-50">
+                <span class="icon float-left"><i class="icon-genius"></i></span>
+                <div class="content fix">
+                    <h4>Latest React & Redux</h4>
+                    <p>Latest React (16.12.0) and Redux (4.0.4) version used.</p>
+                </div>
+            </div>
+            
+            <div class="single-feature col-md-4 col-sm-6 col-xs-12 mb-50">
+                <span class="icon float-left"><i class="icon-mobile"></i></span>
+                <div class="content fix">
+                    <h4>Responsive Design</h4>
+                    <p>Flone is super responsive & work perfectly in all devices.</p>
+                </div>
+            </div>
+            <div class="single-feature col-md-4 col-sm-6 col-xs-12 mb-50">
+                <span class="icon float-left"><i class="icon-profile-male"></i></span>
+                <div class="content fix">
+                    <h4>User Friendly</h4>
+                    <p>Flone easy to use for any technical people.</p>
+                </div>
+            </div>
+            <div class="single-feature col-md-4 col-sm-6 col-xs-12 mb-50">
+                <span class="icon float-left"><i class="icon-beaker"></i></span>
+                <div class="content fix">
+                    <h4>Creative Design</h4>
+                    <p>It's comes with creative & smart design layout.</p>
+                </div>
+            </div>
+           
+            <div class="single-feature col-md-4 col-sm-6 col-xs-12 mb-50">
+                <span class="icon float-left"><i class="icon-genius"></i></span>
+                <div class="content fix">
+                    <h4>Google Font</h4>
+                    <p>600 Google Fonts. You can change font for all elements easily.</p>
+                </div>
+            </div>
+            <div class="single-feature col-md-4 col-sm-6 col-xs-12 mb-50">
+                <span class="icon float-left"><i class="icon-envelope"></i></span>
+                <div class="content fix">
+                    <h4>Mailchimp Subscription</h4>
+                    <p>It comes with Mailchimp which makes subscription much more quicker.</p>
+                </div>
+            </div>
+            <div class="single-feature col-md-4 col-sm-6 col-xs-12 mb-50">
+                <span class="icon float-left"><i class="icon-search"></i></span>
+                <div class="content fix">
+                    <h4>Clean Markup</h4>
+                    <p>We developed it followed by W3C Markup.</p>
+                </div>
+            </div>
+            <div class="single-feature col-md-4 col-sm-6 col-xs-12 mb-50">
+                <span class="icon float-left"><i class="icon-upload"></i></span>
+                <div class="content fix">
+                    <h4>Free Updates</h4>
+                    <p>Purchase once & get life-time free updates.</p>
+                </div>
+            </div>
+            <div class="single-feature col-md-4 col-sm-6 col-xs-12 mb-50">
+                <span class="icon float-left"><i class="icon-megaphone"></i></span>
+                <div class="content fix">
+                    <h4>Real Support</h4>
+                    <p>We provide 7 days a week one by one real support.</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- Hero Section End -->
+
+
+
+<div class="footer-section section pt-65 pb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Make your website come to life quickly.</h1>
+                <a class="buy-btn float-right bottom-btn" href="#">buy Flone</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Placed JS at the end of the document so the pages load faster -->
+<!-- jQuery latest version -->
+<script src="p2/js/vendor/jquery-3.1.1.min.js"></script>
+<!-- Bootstrap js -->
+<script src="p2/js/bootstrap.min.js"></script>
+<!-- Plugins js -->
+<script src="p2/js/plugins.js"></script>
+<!-- Ajax Mail js -->
+<script src="p2/js/ajax-mail.js"></script>
+<!-- Main js -->
+<script src="p2/js/main.js"></script>
+
+</body>
+
+</html>
