@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import MetaTags from "react-meta-tags";
 import { Link } from "react-router-dom";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -7,9 +7,56 @@ import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import { connect } from "react-redux";
+import { login, register } from "../../redux/actions/authActions";
 
-const LoginRegister = ({ location }) => {
+const LoginRegister = ({ location, login, history, register }) => {
   const { pathname } = location;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [userName, setUserName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
+
+  const Login = (e) => {
+    e.preventDefault();
+    console.log("user-name", email);
+    console.log("user-password", password);
+    const LOGIN_DATA = {
+      email: email,
+      password: password,
+    };
+
+    console.log("LOGIN_DATA", LOGIN_DATA);
+
+    login(LOGIN_DATA, () => {
+      history.push({
+        pathname: "/home-fashion",
+      });
+    });
+  };
+
+  const Register = (e) => {
+    e.preventDefault();
+    const REGISTER_DATA = {
+      userName: userName,
+      role: "buyer",
+      email: email,
+      phone: phoneNumber,
+      address: address,
+      password: password,
+      confirmPassword: confirmPassword,
+    };
+
+    console.log("REGISTER_DATA", REGISTER_DATA);
+
+    register(REGISTER_DATA, () => {
+      history.push({
+        pathname: "/home-fashion",
+      });
+    });
+  };
 
   return (
     <Fragment>
@@ -53,12 +100,16 @@ const LoginRegister = ({ location }) => {
                               <input
                                 type="text"
                                 name="user-name"
-                                placeholder="Username"
+                                placeholder="Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                               />
                               <input
                                 type="password"
                                 name="user-password"
                                 placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                               />
                               <div className="button-box">
                                 <div className="login-toggle-btn">
@@ -68,7 +119,7 @@ const LoginRegister = ({ location }) => {
                                     Forgot Password?
                                   </Link>
                                 </div>
-                                <button type="submit">
+                                <button onClick={Login} type="submit">
                                   <span>Login</span>
                                 </button>
                               </div>
@@ -84,19 +135,49 @@ const LoginRegister = ({ location }) => {
                                 type="text"
                                 name="user-name"
                                 placeholder="Username"
-                              />
-                              <input
-                                type="password"
-                                name="user-password"
-                                placeholder="Password"
+                                value={userName}
+                                onChange={(e) => setUserName(e.target.value)}
                               />
                               <input
                                 name="user-email"
                                 placeholder="Email"
                                 type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                              />
+                              <input
+                                name="user-email"
+                                placeholder="Phone"
+                                type="text"
+                                value={phoneNumber}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                                maxLength={11}
+                              />
+                              <input
+                                name="user-email"
+                                placeholder="Address"
+                                type="text"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                              />
+                              <input
+                                type="password"
+                                name="user-password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                              />
+                              <input
+                                type="password"
+                                name="user-password"
+                                placeholder="Confirm Password"
+                                value={confirmPassword}
+                                onChange={(e) =>
+                                  setConfirmPassword(e.target.value)
+                                }
                               />
                               <div className="button-box">
-                                <button type="submit">
+                                <button onClick={Register} type="submit">
                                   <span>Register</span>
                                 </button>
                               </div>
@@ -117,7 +198,12 @@ const LoginRegister = ({ location }) => {
 };
 
 LoginRegister.propTypes = {
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
-export default LoginRegister;
+const mapDispatchToProps = {
+  login,
+  register,
+};
+
+export default connect(null, mapDispatchToProps)(LoginRegister);
