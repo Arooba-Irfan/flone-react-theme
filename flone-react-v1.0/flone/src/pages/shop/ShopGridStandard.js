@@ -10,6 +10,7 @@ import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
 import ShopSidebar from '../../wrappers/product/ShopSidebar';
 import ShopTopbar from '../../wrappers/product/ShopTopbar';
 import ShopProducts from '../../wrappers/product/ShopProducts';
+import axios from 'axios';
 
 const ShopGridStandard = ({location, products}) => {
     const [layout, setLayout] = useState('grid three-column');
@@ -21,6 +22,7 @@ const ShopGridStandard = ({location, products}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
+    const [fetchedProducts, setFetchedProducts] = useState([]);
 
     const pageLimit = 15;
     const {pathname} = location;
@@ -38,6 +40,21 @@ const ShopGridStandard = ({location, products}) => {
         setFilterSortType(sortType);
         setFilterSortValue(sortValue);
     }
+
+    useEffect(() => {
+      function fetchProducts() {
+        axios
+          .get(
+            "http://localhost:8000/api/products?price[gt]=2000&gender=Women&sort=-price"
+          )
+          .then((response) => {
+            console.log("response", response.data.data.products);
+            setFetchedProducts(response.data.data.products)
+          });
+      }
+
+      fetchProducts();
+    }, []);
 
     useEffect(() => {
         let sortedProducts = getSortedProducts(products, sortType, sortValue);
@@ -73,7 +90,7 @@ const ShopGridStandard = ({location, products}) => {
                                 <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={products.length} sortedProductCount={currentData.length} />
 
                                 {/* shop page content default */}
-                                <ShopProducts layout={layout} products={currentData} />
+                                <ShopProducts layout={layout} products={fetchedProducts} />
 
                                 {/* shop product pagination */}
                                 <div className="pro-pagination-style text-center mt-30">

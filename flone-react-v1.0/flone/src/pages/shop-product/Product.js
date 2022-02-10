@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment,useEffect,useState } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
@@ -8,10 +8,29 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
+import axios from 'axios';
 
-const Product = ({ location, product }) => {
+const Product = ({
+  location,
+  // product,
+  match: {
+    params: { id },
+  }
+}) => {
+  console.log("product", id);
   const { pathname } = location;
+  const [product, setProduct] = useState({});
 
+  useEffect(() => {
+    function fetchProductDetail() {
+      axios.get("http://localhost:8000/api/product/" + id).then((response) => {
+        console.log("response", response.data.data.product);
+        setProduct(response.data.data.product);
+      });
+    }
+
+    fetchProductDetail();
+  }, []);
   return (
     <Fragment>
       <MetaTags>
@@ -41,14 +60,16 @@ const Product = ({ location, product }) => {
         {/* product description tab */}
         <ProductDescriptionTab
           spaceBottomClass="pb-90"
-          productFullDesc={product.fullDescription}
+          productFullDesc={
+            "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur."
+          }
         />
 
         {/* related product slider */}
-        <RelatedProductSlider
+        {/* <RelatedProductSlider
           spaceBottomClass="pb-95"
           category={product.category[0]}
-        />
+        /> */}
       </LayoutOne>
     </Fragment>
   );
@@ -56,16 +77,16 @@ const Product = ({ location, product }) => {
 
 Product.propTypes = {
   location: PropTypes.object,
-  product: PropTypes.object
+  // product: PropTypes.object
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const productId = ownProps.match.params.id;
-  return {
-    product: state.productData.products.filter(
-      single => single.id === productId
-    )[0]
-  };
-};
+// const mapStateToProps = (state, ownProps) => {
+//   const productId = ownProps.match.params.id;
+//   return {
+//     product: state.productData.products.filter(
+//       single => single.id === productId
+//     )[0]
+//   };
+// };
 
-export default connect(mapStateToProps)(Product);
+export default (Product);

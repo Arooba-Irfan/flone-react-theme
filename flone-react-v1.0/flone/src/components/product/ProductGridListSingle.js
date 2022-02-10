@@ -21,11 +21,11 @@ const ProductGridListSingle = ({
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
 
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
+  // const discountedPrice = getDiscountPrice(product.price, product.discount);
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
-  const finalDiscountedPrice = +(
-    discountedPrice * currency.currencyRate
-  ).toFixed(2);
+  // const finalDiscountedPrice = +(
+  //   discountedPrice * currency.currencyRate
+  // ).toFixed(2);
 
   return (
     <Fragment>
@@ -41,20 +41,20 @@ const ProductGridListSingle = ({
             <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
               <img
                 className="default-img"
-                src={process.env.PUBLIC_URL + product.image[0]}
+                src={process.env.PUBLIC_URL + product.image}
                 alt=""
               />
-              {product.image.length > 1 ? (
+              {product.image ? (
                 <img
                   className="hover-img"
-                  src={process.env.PUBLIC_URL + product.image[1]}
+                  src={process.env.PUBLIC_URL + product.image}
                   alt=""
                 />
               ) : (
                 ""
               )}
             </Link>
-            {product.discount || product.new ? (
+            {/* {product.discount || product.new ? (
               <div className="product-img-badges">
                 {product.discount ? (
                   <span className="pink">-{product.discount}%</span>
@@ -65,7 +65,7 @@ const ProductGridListSingle = ({
               </div>
             ) : (
               ""
-            )}
+            )} */}
 
             <div className="product-action">
               <div className="pro-same-action pro-wishlist">
@@ -77,13 +77,17 @@ const ProductGridListSingle = ({
                       ? "Added to wishlist"
                       : "Add to wishlist"
                   }
-                  onClick={() => addToWishlist(product, addToast)}
+                  // onClick={() => addToWishlist(product, addToast)}
                 >
                   <i className="pe-7s-like" />
                 </button>
               </div>
               <div className="pro-same-action pro-cart">
-                {product.affiliateLink ? (
+                {product.variation.length >= 1 ? (
+                  <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
+                    Select Option
+                  </Link>
+                ) : (
                   <a
                     href={product.affiliateLink}
                     rel="noopener noreferrer"
@@ -92,33 +96,6 @@ const ProductGridListSingle = ({
                     {" "}
                     Buy now{" "}
                   </a>
-                ) : product.variation && product.variation.length >= 1 ? (
-                  <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
-                    Select Option
-                  </Link>
-                ) : product.stock && product.stock > 0 ? (
-                  <button
-                    onClick={() => addToCart(product, addToast)}
-                    className={
-                      cartItem !== undefined && cartItem.quantity > 0
-                        ? "active"
-                        : ""
-                    }
-                    disabled={cartItem !== undefined && cartItem.quantity > 0}
-                    title={
-                      cartItem !== undefined ? "Added to cart" : "Add to cart"
-                    }
-                  >
-                    {" "}
-                    <i className="pe-7s-cart"></i>{" "}
-                    {cartItem !== undefined && cartItem.quantity > 0
-                      ? "Added"
-                      : "Add to cart"}
-                  </button>
-                ) : (
-                  <button disabled className="active">
-                    Out of Stock
-                  </button>
                 )}
               </div>
               <div className="pro-same-action pro-quickview">
@@ -131,7 +108,7 @@ const ProductGridListSingle = ({
           <div className="product-content text-center">
             <h3>
               <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-                {product.name}
+                {product.productName}
               </Link>
             </h3>
             {product.rating && product.rating > 0 ? (
@@ -141,7 +118,7 @@ const ProductGridListSingle = ({
             ) : (
               ""
             )}
-            <div className="product-price">
+            {/* <div className="product-price">
               {discountedPrice !== null ? (
                 <Fragment>
                   <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
@@ -152,7 +129,7 @@ const ProductGridListSingle = ({
               ) : (
                 <span>{currency.currencySymbol + finalProductPrice} </span>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="shop-list-wrap mb-30">
@@ -198,7 +175,7 @@ const ProductGridListSingle = ({
                     {product.name}
                   </Link>
                 </h3>
-                <div className="product-list-price">
+                {/* <div className="product-list-price">
                   {discountedPrice !== null ? (
                     <Fragment>
                       <span>
@@ -211,7 +188,7 @@ const ProductGridListSingle = ({
                   ) : (
                     <span>{currency.currencySymbol + finalProductPrice} </span>
                   )}
-                </div>
+                </div> */}
                 {product.rating && product.rating > 0 ? (
                   <div className="rating-review">
                     <div className="product-list-rating">
@@ -309,7 +286,7 @@ const ProductGridListSingle = ({
         </div>
       </div>
       {/* product modal */}
-      <ProductModal
+      {/* <ProductModal
         show={modalShow}
         onHide={() => setModalShow(false)}
         product={product}
@@ -324,7 +301,7 @@ const ProductGridListSingle = ({
         addtowishlist={addToWishlist}
         addtocompare={addToCompare}
         addtoast={addToast}
-      />
+      /> */}
     </Fragment>
   );
 };
