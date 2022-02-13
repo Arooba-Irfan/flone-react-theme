@@ -9,6 +9,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
 const Checkout = ({ location, cartItems, currency }) => {
+  console.log("cartItems",cartItems)
   const { pathname } = location;
   let cartTotalPrice = 0;
 
@@ -38,32 +39,44 @@ const Checkout = ({ location, cartItems, currency }) => {
                     <div className="row">
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>First Name</label>
+                          <label>Username</label>
                           <input type="text" />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>Last Name</label>
+                          <label>Phone</label>
                           <input type="text" />
                         </div>
                       </div>
-                      <div className="col-lg-12">
+                      <div className="col-lg-12 col-md-6">
+                        <div className="billing-info mb-20">
+                          <label>Email Address</label>
+                          <input type="text" />
+                        </div>
+                      </div>
+                      {/* <div className="col-lg-6 col-md-6">
+                        <div className="billing-info mb-20">
+                          <label>Last Name</label>
+                          <input type="text" />
+                        </div>
+                      </div> */}
+                      {/* <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>Company Name</label>
                           <input type="text" />
                         </div>
-                      </div>
+                      </div> */}
                       <div className="col-lg-12">
                         <div className="billing-select mb-20">
                           <label>Country</label>
                           <select>
                             <option>Select a country</option>
-                            <option>Azerbaijan</option>
-                            <option>Bahamas</option>
-                            <option>Bahrain</option>
-                            <option>Bangladesh</option>
-                            <option>Barbados</option>
+                            <option>Pakistan</option>
+                            <option>Canada</option>
+                            <option>UK</option>
+                            <option>USA</option>
+                            <option>UAE</option>
                           </select>
                         </div>
                       </div>
@@ -89,25 +102,13 @@ const Checkout = ({ location, cartItems, currency }) => {
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>State / County</label>
+                          <label>State / Province</label>
                           <input type="text" />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Postcode / ZIP</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>Phone</label>
-                          <input type="text" />
-                        </div>
-                      </div>
-                      <div className="col-lg-6 col-md-6">
-                        <div className="billing-info mb-20">
-                          <label>Email Address</label>
                           <input type="text" />
                         </div>
                       </div>
@@ -160,7 +161,7 @@ const Checkout = ({ location, cartItems, currency }) => {
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
-                                    {cartItem.name} X {cartItem.quantity}
+                                    {cartItem.productName} X {cartItem.quantity}
                                   </span>{" "}
                                   <span className="order-price">
                                     {discountedPrice !== null

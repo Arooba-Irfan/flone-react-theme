@@ -1,10 +1,18 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Swiper from "react-id-swiper";
-import categoryData from "../../data/category/category-one.json";
+// import categoryData from "../../data/category/category-one.json";
 import CategoryOneSingle from "../../components/category/CategoryOneSingle.js";
+import SectionTitle from "../../components/section-title/SectionTitle";
+import Axios from "axios";
 
-const CategoryOneSlider = ({ spaceBottomClass }) => {
+const CategoryOneSlider = ({ 
+  spaceTopClass,
+  spaceBottomClass,
+  bgColorClass,
+  data,
+  sectionName
+}) => {
   // swiper slider settings
   const settings = {
     loop: true,
@@ -21,29 +29,36 @@ const CategoryOneSlider = ({ spaceBottomClass }) => {
       }
     }
   };
+
+  
   return (
     <div
-      className={`collections-area ${spaceBottomClass ? spaceBottomClass : ""}`}
-    >
-      <div className="container">
-        <div className="collection-wrap-2">
-          <div className="collection-active-2">
-            <Swiper {...settings}>
-              {categoryData &&
-                categoryData.map((single, key) => {
-                  return (
-                    <CategoryOneSingle
-                      data={single}
-                      key={key}
-                      sliderClass="swiper-slide"
-                    />
-                  );
-                })}
-            </Swiper>
-          </div>
-        </div>
+    className={`product-area ${spaceTopClass ? spaceTopClass : ""} ${
+      spaceBottomClass ? spaceBottomClass : ""
+    } ${bgColorClass ? bgColorClass : ""}`}
+  >
+    <div className="container">
+      <SectionTitle 
+        titleText={sectionName} 
+        positionClass="text-center"
+        spaceClass="mb-55"
+      />
+      <div className="row">
+        <Swiper {...settings}>
+          {data &&
+            data.map((single, key) => {
+              return (
+                <CategoryOneSingle
+                  data={single}
+                  key={key}
+                  sliderClass="swiper-slide"
+                />
+              );
+            })}
+        </Swiper>
       </div>
     </div>
+  </div>
   );
 };
 
@@ -52,3 +67,12 @@ CategoryOneSlider.propTypes = {
 };
 
 export default CategoryOneSlider;
+
+
+
+
+
+
+
+
+

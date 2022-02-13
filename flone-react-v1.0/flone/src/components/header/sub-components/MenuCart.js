@@ -34,7 +34,7 @@ const MenuCart = ({ cartData, currency, removeFromCart }) => {
                     <Link to={process.env.PUBLIC_URL + "/product/" + single.id}>
                       <img
                         alt=""
-                        src={process.env.PUBLIC_URL + single.image[0]}
+                        src={process.env.PUBLIC_URL + single.image}
                         className="img-fluid"
                       />
                     </Link>
@@ -45,7 +45,7 @@ const MenuCart = ({ cartData, currency, removeFromCart }) => {
                         to={process.env.PUBLIC_URL + "/product/" + single.id}
                       >
                         {" "}
-                        {single.name}{" "}
+                        {single.productName}{" "}
                       </Link>
                     </h4>
                     <h6>Qty: {single.quantity}</h6>

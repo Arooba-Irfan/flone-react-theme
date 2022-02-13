@@ -7,22 +7,24 @@ import Rating from "./sub-components/ProductRating";
 import { connect } from "react-redux";
 
 function ProductModal(props) {
+  console.log("ProductModal", props);
   const { product } = props;
   const { currency } = props;
   const { discountedprice } = props;
   const { finalproductprice } = props;
   const { finaldiscountedprice } = props;
 
+  const [image, setImage] = useState(product.image);
   const [gallerySwiper, getGallerySwiper] = useState(null);
   const [thumbnailSwiper, getThumbnailSwiper] = useState(null);
   const [selectedProductColor, setSelectedProductColor] = useState(
     product.variation ? product.variation[0].color : ""
   );
   const [selectedProductSize, setSelectedProductSize] = useState(
-    product.variation ? product.variation[0].size[0].name : ""
+    product.variation ? product.variation[0].sizes[0].name : ""
   );
   const [productStock, setProductStock] = useState(
-    product.variation ? product.variation[0].size[0].stock : product.stock
+    product.variation ? product.variation[0].sizes[0].stock : product.stock
   );
   const [quantityCount, setQuantityCount] = useState(1);
 
@@ -99,25 +101,22 @@ function ProductModal(props) {
         <div className="modal-body">
           <div className="row">
             <div className="col-md-5 col-sm-12 col-xs-12">
-              <div className="product-large-image-wrapper">
+              <div
+                style={{ backgroundColor: "red" }}
+                className="product-large-image-wrapper"
+              >
                 <Swiper {...gallerySwiperParams}>
-                  {product.image &&
-                    product.image.map((single, key) => {
-                      return (
-                        <div key={key}>
-                          <div className="single-image">
-                            <img
-                              src={process.env.PUBLIC_URL + single}
-                              className="img-fluid"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      );
-                    })}
+                  <div className="single-image">
+                    <img
+                      width="100%"
+                      height="100%"
+                      src={image}
+                      alt="product"
+                    />
+                  </div>
                 </Swiper>
               </div>
-              <div className="product-small-image-wrapper mt-15">
+              {/* <div className="product-small-image-wrapper mt-15">
                 <Swiper {...thumbnailSwiperParams}>
                   {product.image &&
                     product.image.map((single, key) => {
@@ -134,26 +133,15 @@ function ProductModal(props) {
                       );
                     })}
                 </Swiper>
-              </div>
+              </div> */}
             </div>
             <div className="col-md-7 col-sm-12 col-xs-12">
               <div className="product-details-content quickview-content">
-                <h2>{product.name}</h2>
+                <h2>{product.productName}</h2>
                 <div className="product-details-price">
-                  {discountedprice !== null ? (
-                    <Fragment>
-                      <span>
-                        {currency.currencySymbol + finaldiscountedprice}
-                      </span>{" "}
-                      <span className="old">
-                        {currency.currencySymbol + finalproductprice}
-                      </span>
-                    </Fragment>
-                  ) : (
-                    <span>{currency.currencySymbol + finalproductprice} </span>
-                  )}
+                  <span>{currency.currencySymbol + finalproductprice} </span>
                 </div>
-                {product.rating && product.rating > 0 ? (
+                {/* {product.rating && product.rating > 0 ? (
                   <div className="pro-details-rating-wrap">
                     <div className="pro-details-rating">
                       <Rating ratingValue={product.rating} />
@@ -161,9 +149,12 @@ function ProductModal(props) {
                   </div>
                 ) : (
                   ""
-                )}
+                )} */}
                 <div className="pro-details-list">
-                  <p>{product.shortDescription}</p>
+                  <p>Ut enim ad minima veniam, quis nostrum exercitationem
+                  ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
+                  commodi consequatur? Quis autem vel eum iure reprehenderit qui
+                  in ea voluptate velit esse quam nihil molestiae consequatur.</p>
                 </div>
 
                 {product.variation ? (
@@ -172,6 +163,7 @@ function ProductModal(props) {
                       <span>Color</span>
                       <div className="pro-details-color-content">
                         {product.variation.map((single, key) => {
+                          console.log("single", single);
                           return (
                             <label
                               className={`pro-details-color-content--single ${single.color}`}
@@ -187,10 +179,13 @@ function ProductModal(props) {
                                     : ""
                                 }
                                 onChange={() => {
-                                  setSelectedProductColor(single.color);
-                                  setSelectedProductSize(single.size[0].name);
-                                  setProductStock(single.size[0].stock);
+                                  setSelectedProductColor(single?.color);
+                                  setSelectedProductSize(
+                                    single?.sizes?.[0].name
+                                  );
+                                  setProductStock(single?.sizes?.[0].stock);
                                   setQuantityCount(1);
+                                  setImage(single?.images?.[0]);
                                 }}
                               />
                               <span className="checkmark"></span>
@@ -203,9 +198,9 @@ function ProductModal(props) {
                       <span>Size</span>
                       <div className="pro-details-size-content">
                         {product.variation &&
-                          product.variation.map(single => {
+                          product.variation.map((single) => {
                             return single.color === selectedProductColor
-                              ? single.size.map((singleSize, key) => {
+                              ? single.sizes.map((singleSize, key) => {
                                   return (
                                     <label
                                       className={`pro-details-size-content--single`}
@@ -242,101 +237,88 @@ function ProductModal(props) {
                 ) : (
                   ""
                 )}
-                {product.affiliateLink ? (
-                  <div className="pro-details-quality">
-                    <div className="pro-details-cart btn-hover">
-                      <a
-                        href={product.affiliateLink}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        Buy Now
-                      </a>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="pro-details-quality">
-                    <div className="cart-plus-minus">
-                      <button
-                        onClick={() =>
-                          setQuantityCount(
-                            quantityCount > 1 ? quantityCount - 1 : 1
-                          )
-                        }
-                        className="dec qtybutton"
-                      >
-                        -
-                      </button>
-                      <input
-                        className="cart-plus-minus-box"
-                        type="text"
-                        value={quantityCount}
-                        readOnly
-                      />
-                      <button
-                        onClick={() =>
-                          setQuantityCount(
-                            quantityCount < productStock - productCartQty
-                              ? quantityCount + 1
-                              : quantityCount
-                          )
-                        }
-                        className="inc qtybutton"
-                      >
-                        +
-                      </button>
-                    </div>
-                    <div className="pro-details-cart btn-hover">
-                      {productStock && productStock > 0 ? (
-                        <button
-                          onClick={() =>
-                            addToCart(
-                              product,
-                              addToast,
-                              quantityCount,
-                              selectedProductColor,
-                              selectedProductSize
-                            )
-                          }
-                          disabled={productCartQty >= productStock}
-                        >
-                          {" "}
-                          Add To Cart{" "}
-                        </button>
-                      ) : (
-                        <button disabled>Out of Stock</button>
-                      )}
-                    </div>
-                    <div className="pro-details-wishlist">
-                      <button
-                        className={wishlistItem !== undefined ? "active" : ""}
-                        disabled={wishlistItem !== undefined}
-                        title={
-                          wishlistItem !== undefined
-                            ? "Added to wishlist"
-                            : "Add to wishlist"
-                        }
-                        onClick={() => addToWishlist(product, addToast)}
-                      >
-                        <i className="pe-7s-like" />
-                      </button>
-                    </div>
-                    <div className="pro-details-compare">
-                      <button
-                        className={compareItem !== undefined ? "active" : ""}
-                        disabled={compareItem !== undefined}
-                        title={
-                          compareItem !== undefined
-                            ? "Added to compare"
-                            : "Add to compare"
-                        }
-                        onClick={() => addToCompare(product, addToast)}
-                      >
-                        <i className="pe-7s-shuffle" />
-                      </button>
-                    </div>
-                  </div>
-                )}
+      { (
+        <div className="pro-details-quality">
+          <div className="cart-plus-minus">
+            <button
+              onClick={() =>
+                setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)
+              }
+              className="dec qtybutton"
+            >
+              -
+            </button>
+            <input
+              className="cart-plus-minus-box"
+              type="text"
+              value={quantityCount}
+              readOnly
+            />
+            <button
+              onClick={() =>
+                setQuantityCount(
+                  quantityCount < productStock - productCartQty
+                    ? quantityCount + 1
+                    : quantityCount
+                )
+              }
+              className="inc qtybutton"
+            >
+              +
+            </button>
+          </div>
+          <div className="pro-details-cart btn-hover">
+            {productStock && productStock > 0 ? (
+              <button
+                onClick={() =>
+                  addToCart(
+                    product,
+                    addToast,
+                    quantityCount,
+                    selectedProductColor,
+                    selectedProductSize
+                  )
+                }
+                disabled={productCartQty >= productStock}
+              >
+                {" "}
+                Add To Cart{" "}
+              </button>
+            ) : (
+              <button disabled>Out of Stock</button>
+            )}
+          </div>
+          <div className="pro-details-wishlist">
+            <button
+              className={wishlistItem !== undefined ? "active" : ""}
+              disabled={wishlistItem !== undefined}
+              title={
+                wishlistItem !== undefined
+                  ? "Added to wishlist"
+                  : "Add to wishlist"
+              }
+              onClick={() => addToWishlist(product, addToast)}
+            >
+              <i className="pe-7s-like" />
+            </button>
+          </div>
+          <div className="pro-details-compare">
+            <button
+              className={compareItem !== undefined ? "active" : ""}
+              disabled={compareItem !== undefined}
+              title={
+                compareItem !== undefined
+                  ? "Added to compare"
+                  : "Add to compare"
+              }
+              onClick={() => addToCompare(product, addToast)}
+            >
+              <i className="pe-7s-shuffle" />
+            </button>
+          </div>
+        </div>
+      )}
+
               </div>
             </div>
           </div>

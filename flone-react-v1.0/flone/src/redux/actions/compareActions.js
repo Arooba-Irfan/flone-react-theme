@@ -3,6 +3,7 @@ export const REMOVE_FROM_COMPARE = "REMOVE_FROM_COMPARE";
 
 // add to compare
 export const addToCompare = (item, addToast) => {
+  console.log("item", item);
   return dispatch => {
     if (addToast) {
       addToast("Added To Compare", {
@@ -16,6 +17,7 @@ export const addToCompare = (item, addToast) => {
 
 // remove from compare
 export const removeFromCompare = (item, addToast) => {
+  console.log("item", item);
   return dispatch => {
     if (addToast) {
       addToast("Removed From Compare", {

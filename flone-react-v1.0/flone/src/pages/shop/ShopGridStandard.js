@@ -10,6 +10,7 @@ import Breadcrumb from '../../wrappers/breadcrumb/Breadcrumb';
 import ShopSidebar from '../../wrappers/product/ShopSidebar';
 import ShopTopbar from '../../wrappers/product/ShopTopbar';
 import ShopProducts from '../../wrappers/product/ShopProducts';
+import axios from 'axios';
 
 const ShopGridStandard = ({location, products}) => {
     const [layout, setLayout] = useState('grid three-column');
@@ -21,9 +22,23 @@ const ShopGridStandard = ({location, products}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [currentData, setCurrentData] = useState([]);
     const [sortedProducts, setSortedProducts] = useState([]);
+    const [fetchedProducts, setFetchedProducts] = useState([]);
+    const [query, setquery] = useState({})
+
+    const [actionloading, setactionloading] = useState(false)
 
     const pageLimit = 15;
     const {pathname} = location;
+
+    const handleQuery = (field, value) => {
+        console.log("from query", field, value)
+        let modQuery = {
+            ...query,
+            [`${field}`]: value
+        };
+        // [`${modQuery.field}`] = value;
+        setquery({...modQuery})
+    }
 
     const getLayout = (layout) => {
         setLayout(layout)
@@ -39,6 +54,21 @@ const ShopGridStandard = ({location, products}) => {
         setFilterSortValue(sortValue);
     }
 
+    // useEffect(() => {
+    //   function fetchProducts(){
+    //     axios
+    //       .get(
+    //         "http://localhost:8000/api/products"
+    //       )
+    //       .then((response) => {
+    //         console.log("response", response.data.data.products);
+    //         setFetchedProducts(response.data.data.products)
+    //       });
+    //   }
+
+    //   fetchProducts();
+    // }, []);
+
     useEffect(() => {
         let sortedProducts = getSortedProducts(products, sortType, sortValue);
         const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
@@ -47,6 +77,40 @@ const ShopGridStandard = ({location, products}) => {
         setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
     }, [offset, products, sortType, sortValue, filterSortType, filterSortValue ]);
 
+    useEffect(() => {
+      setactionloading(true);
+      function fetchProducts(){
+        axios
+          .get(
+            "http://localhost:8000/api/products",{
+                params:{...query}
+            }
+          )
+          .then((response) => {
+            // console.log("response after query", response.data.data.products);
+            setFetchedProducts(response.data.data.products)
+            setactionloading(false) 
+          });
+      }
+
+      fetchProducts();
+    }, [query])
+
+    useEffect(() => {
+      console.log("currentData",currentData)
+    }, [currentData])
+    
+
+    useEffect(() => {
+        let sortedProducts = getSortedProducts(fetchedProducts, sortType, sortValue);
+        const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
+        sortedProducts = filterSortedProducts;
+        console.log("sortedProducts",sortedProducts)
+        setSortedProducts(sortedProducts);
+        setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
+    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue,fetchedProducts ]);
+
+    
     return (
         <Fragment>
             <MetaTags>
@@ -66,19 +130,19 @@ const ShopGridStandard = ({location, products}) => {
                         <div className="row">
                             <div className="col-lg-3 order-2 order-lg-1">
                                 {/* shop sidebar */}
-                                <ShopSidebar products={products} getSortParams={getSortParams} sideSpaceClass="mr-30"/>
+                                <ShopSidebar products={fetchedProducts} getSortParams={getSortParams} handleQuery={handleQuery} sideSpaceClass="mr-30"/>
                             </div>
                             <div className="col-lg-9 order-1 order-lg-2">
                                 {/* shop topbar default */}
-                                <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={products.length} sortedProductCount={currentData.length} />
+                                <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={fetchedProducts.length} sortedProductCount={currentData.length} />
 
                                 {/* shop page content default */}
-                                <ShopProducts layout={layout} products={currentData} />
+                                <ShopProducts layout={layout} products={currentData} actionloading={actionloading}/>
 
                                 {/* shop product pagination */}
                                 <div className="pro-pagination-style text-center mt-30">
                                     <Paginator
-                                        totalRecords={sortedProducts.length}
+                                        totalRecords={fetchedProducts.length}
                                         pageLimit={pageLimit}
                                         pageNeighbours={2}
                                         setOffset={setOffset}

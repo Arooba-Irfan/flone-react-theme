@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { setActiveSort } from "../../helpers/product";
 
-const ShopColor = ({ colors, getSortParams }) => {
+const ShopColor = ({ colors, getSortParams, handleQuery, setisPriceQuery }) => {
+
+  const [activeColor, setActiveColor] = useState("")
   return (
     <div className="sidebar-widget mt-50">
       <h4 className="pro-sidebar-title">Color </h4>
@@ -12,9 +14,13 @@ const ShopColor = ({ colors, getSortParams }) => {
             <li>
               <div className="sidebar-widget-list-left">
                 <button
+                  className={activeColor === "" ? 'active' : ''}
                   onClick={e => {
-                    getSortParams("color", "");
-                    setActiveSort(e);
+                    // getSortParams("color", "");
+                    handleQuery("color", "");
+                    setActiveColor("");
+                    setisPriceQuery(false);
+                    // setActiveSort(e);
                   }}
                 >
                   <span className="checkmark" /> All Colors{" "}
@@ -26,9 +32,13 @@ const ShopColor = ({ colors, getSortParams }) => {
                 <li key={key}>
                   <div className="sidebar-widget-list-left">
                     <button
+                      className={activeColor === color ? 'active' : ''}
                       onClick={e => {
-                        getSortParams("color", color);
-                        setActiveSort(e);
+                        // getSortParams("color", color);
+                        handleQuery("color", color);
+                        setActiveColor(color);
+                        setisPriceQuery(false);
+                        // setActiveSort(e);
                       }}
                     >
                       <span className="checkmark" /> {color}{" "}

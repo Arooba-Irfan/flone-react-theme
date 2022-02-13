@@ -47,6 +47,7 @@ const ShopListStandard = ({ location, products }) => {
       filterSortValue
     );
     sortedProducts = filterSortedProducts;
+    console.log("sortedProducts",sortedProducts)
     setSortedProducts(sortedProducts);
     setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
   }, [offset, products, sortType, sortValue, filterSortType, filterSortValue]);
@@ -96,7 +97,7 @@ const ShopListStandard = ({ location, products }) => {
                 {/* shop product pagination */}
                 <div className="pro-pagination-style text-center mt-30">
                   <Paginator
-                    totalRecords={sortedProducts.length}
+                    totalRecords={products.length}
                     pageLimit={pageLimit}
                     pageNeighbours={2}
                     setOffset={setOffset}

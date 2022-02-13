@@ -6,12 +6,12 @@ const CategoryOneSingle = ({ data, sliderClass }) => {
   return (
     <div className={`collection-product-2 ${sliderClass ? sliderClass : ""}`}>
       <Link to={process.env.PUBLIC_URL + data.link}>
-        <img src={process.env.PUBLIC_URL + data.image} alt="" />
+        <img src={data.image} alt=""/>
       </Link>
       <div className="collection-content-2 text-center">
-        <span>{data.subtitle}</span>
+        {/* <span>4 Products</span> */}
         <h4>
-          <Link to={process.env.PUBLIC_URL + data.link}>{data.title}</Link>
+          <Link to={process.env.PUBLIC_URL + data.link}>{data.name}</Link>
         </h4>
       </div>
     </div>

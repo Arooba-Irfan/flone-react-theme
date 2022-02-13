@@ -169,7 +169,7 @@ export const getProductsUniqueSizes = products => {
       return (
         product.variation &&
         product.variation.map(single => {
-          return single.size.map(single => {
+          return single.sizes.map(single => {
             return productSizes.push(single.name);
           });
         })
@@ -178,6 +178,16 @@ export const getProductsUniqueSizes = products => {
   const uniqueProductSizes = getUniqueElemArray(productSizes);
   return uniqueProductSizes;
 };
+
+export const getmaxPrice = products => {
+  let maxPrice = ""; 
+  products &&
+    products.forEach(product => {
+      if (product.price > maxPrice) maxPrice = product.price
+    })
+    console.log("maxprice", maxPrice)
+  return maxPrice;
+}
 
 // get product unique sizes
 export const getUniqueSizes = product => {
@@ -196,12 +206,13 @@ export const getUniqueSizes = product => {
 };
 
 export const setActiveSort = e => {
-  const filterButtons = document.querySelectorAll(
-    ".sidebar-widget-list-left button, .sidebar-widget-tag button, .product-filter button"
-  );
-  filterButtons.forEach(elem => {
-    elem.classList.remove("active");
-  });
+  // console.log("E", e)
+  // const filterButtons = document.querySelectorAll(
+  //   ".sidebar-widget-list-left button, .sidebar-widget-tag button, .product-filter button"
+  // );
+  // filterButtons.forEach(elem => {
+  //   elem.classList.remove("active");
+  // });
   e.currentTarget.classList.add("active");
 };
 

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { connect } from "react-redux";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../helpers/product";
@@ -18,20 +18,29 @@ const ProductImageDescription = ({
   wishlistItems,
   compareItems
 }) => {
-  const wishlistItem = wishlistItems.filter(
-    wishlistItem => wishlistItem.id === product.id
-  )[0];
-  const compareItem = compareItems.filter(
-    compareItem => compareItem.id === product.id
-  )[0];
+  console.log("galleryType", galleryType);
+  // const wishlistItem = wishlistItems.filter(
+  //   wishlistItem => wishlistItem.id === product.id
+  // )[0];
+  // const compareItem = compareItems.filter(
+  //   compareItem => compareItem.id === product.id
+  // )[0]
+  console.log("product ----",product)
   const { addToast } = useToasts();
+  const [image, setImage] = useState('');
 
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
+  // const discountedPrice = getDiscountPrice(product.price, product.discount);
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
-  const finalDiscountedPrice = +(
-    discountedPrice * currency.currencyRate
-  ).toFixed(2);
+  console.log("finalProductPrice", finalProductPrice);
+  // const finalDiscountedPrice = +(
+  //   discountedPrice * currency.currencyRate
+  // ).toFixed(2);
 
+  useEffect(() => {
+    setImage(product.image);
+   console.log("product.image",image)
+  }, [product])
+  
   return (
     <div
       className={`shop-area ${spaceTopClass ? spaceTopClass : ""} ${
@@ -40,9 +49,10 @@ const ProductImageDescription = ({
     >
       <div className="container">
         <div className="row">
-          <div className="col-lg-6 col-md-6">
+          <div className ="col-lg-6 col-md-6">
             {/* product image gallery */}
-            {galleryType === "leftThumb" ? (
+            <img width="100%" height="100%" src={image} alt="product" />
+            {/* {galleryType === "leftThumb" ? (
               <ProductImageGallerySideThumb
                 product={product}
                 thumbPosition="left"
@@ -53,19 +63,20 @@ const ProductImageDescription = ({
               <ProductImageFixed product={product} />
             ) : (
               <ProductImageGallery product={product} />
-            )}
+            )} */}
           </div>
           <div className="col-lg-6 col-md-6">
             {/* product description info */}
             <ProductDescriptionInfo
+              setImage={setImage}
               product={product}
-              discountedPrice={discountedPrice}
+              // discountedPrice={discountedPrice}
               currency={currency}
-              finalDiscountedPrice={finalDiscountedPrice}
+              // finalDiscountedPrice={finalDiscountedPrice}
               finalProductPrice={finalProductPrice}
               cartItems={cartItems}
-              wishlistItem={wishlistItem}
-              compareItem={compareItem}
+              // wishlistItem={wishlistItem}
+              // compareItem={compareItem}
               addToast={addToast}
             />
           </div>
