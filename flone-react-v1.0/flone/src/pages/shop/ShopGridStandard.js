@@ -45,7 +45,7 @@ const ShopGridStandard = ({location, products}) => {
       function fetchProducts() {
         axios
           .get(
-            "http://localhost:8000/api/products?price[gt]=2000&gender=Women&sort=-price"
+            "http://localhost:8000/api/products"
           )
           .then((response) => {
             console.log("response", response.data.data.products);

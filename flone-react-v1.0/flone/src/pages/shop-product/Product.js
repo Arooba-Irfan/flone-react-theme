@@ -22,14 +22,10 @@ const Product = ({
   const [product, setProduct] = useState({});
 
   useEffect(() => {
-    function fetchProductDetail() {
-      axios.get("http://localhost:8000/api/product/" + id).then((response) => {
-        console.log("response", response.data.data.product);
-        setProduct(response.data.data.product);
-      });
-    }
-
-    fetchProductDetail();
+    axios.get("http://localhost:8000/api/product/" + id).then((response) => {
+      console.log("response", response.data.data.product);
+      setProduct(response.data.data.product);
+    });
   }, []);
   return (
     <Fragment>

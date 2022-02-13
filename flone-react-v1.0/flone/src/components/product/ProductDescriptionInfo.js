@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getProductCartQty } from "../../helpers/product";
@@ -10,7 +10,7 @@ import Rating from "./sub-components/ProductRating";
 
 const ProductDescriptionInfo = ({
   product,
-  discountedPrice,
+  // discountedPrice,
   currency,
   finalDiscountedPrice,
   finalProductPrice,
@@ -20,16 +20,18 @@ const ProductDescriptionInfo = ({
   addToast,
   addToCart,
   addToWishlist,
-  addToCompare
+  addToCompare,
+  setImage
 }) => {
+  console.log("singleproduct",product.variation)
   const [selectedProductColor, setSelectedProductColor] = useState(
-    product.variation ? product.variation[0].color : ""
+    product.variation ? product.variation?.[0]?.color : ""
   );
   const [selectedProductSize, setSelectedProductSize] = useState(
-    product.variation ? product.variation[0].size[0].name : ""
+    product.variation ? product?.variation?.[0].sizes?.[0].name : ""
   );
   const [productStock, setProductStock] = useState(
-    product.variation ? product.variation[0].size[0].stock : product.stock
+    product.variation ? product?.variation?.[0].sizes?.[0].stock : 0
   );
   const [quantityCount, setQuantityCount] = useState(1);
 
@@ -39,23 +41,19 @@ const ProductDescriptionInfo = ({
     selectedProductColor,
     selectedProductSize
   );
+  useEffect(() => {
+   setSelectedProductColor(product.variation?.[0]?.color);
+   setSelectedProductSize(product?.variation?.[0].sizes?.[0].name);
+    setProductStock(product.variation?.[0].sizes?.[0].stock);
+  }, [product.variation])
 
   return (
     <div className="product-details-content ml-70">
-      <h2>{product.name}</h2>
+      <h2>{product.productName}</h2>
       <div className="product-details-price">
-        {discountedPrice !== null ? (
-          <Fragment>
-            <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
-            <span className="old">
-              {currency.currencySymbol + finalProductPrice}
-            </span>
-          </Fragment>
-        ) : (
-          <span>{currency.currencySymbol + finalProductPrice} </span>
-        )}
+        <span>{currency.currencySymbol + finalProductPrice} </span>
       </div>
-      {product.rating && product.rating > 0 ? (
+      {/* {product.rating && product.rating > 0 ? (
         <div className="pro-details-rating-wrap">
           <div className="pro-details-rating">
             <Rating ratingValue={product.rating} />
@@ -63,9 +61,9 @@ const ProductDescriptionInfo = ({
         </div>
       ) : (
         ""
-      )}
+      )} */}
       <div className="pro-details-list">
-        <p>{product.shortDescription}</p>
+        <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>
       </div>
 
       {product.variation ? (
@@ -74,6 +72,7 @@ const ProductDescriptionInfo = ({
             <span>Color</span>
             <div className="pro-details-color-content">
               {product.variation.map((single, key) => {
+                console.log("single",single)
                 return (
                   <label
                     className={`pro-details-color-content--single ${single.color}`}
@@ -87,10 +86,11 @@ const ProductDescriptionInfo = ({
                         single.color === selectedProductColor ? "checked" : ""
                       }
                       onChange={() => {
-                        setSelectedProductColor(single.color);
-                        setSelectedProductSize(single.size[0].name);
-                        setProductStock(single.size[0].stock);
+                        setSelectedProductColor(single?.color);
+                        setSelectedProductSize(single?.sizes?.[0].name);
+                        setProductStock(single?.sizes?.[0].stock);
                         setQuantityCount(1);
+                        setImage(single?.images?.[0]);
                       }}
                     />
                     <span className="checkmark"></span>
@@ -105,7 +105,7 @@ const ProductDescriptionInfo = ({
               {product.variation &&
                 product.variation.map(single => {
                   return single.color === selectedProductColor
-                    ? single.size.map((singleSize, key) => {
+                    ? single.sizes.map((singleSize, key) => {
                         return (
                           <label
                             className={`pro-details-size-content--single`}
@@ -137,19 +137,7 @@ const ProductDescriptionInfo = ({
       ) : (
         ""
       )}
-      {product.affiliateLink ? (
-        <div className="pro-details-quality">
-          <div className="pro-details-cart btn-hover ml-0">
-            <a
-              href={product.affiliateLink}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Buy Now
-            </a>
-          </div>
-        </div>
-      ) : (
+      { (
         <div className="pro-details-quality">
           <div className="cart-plus-minus">
             <button
@@ -230,42 +218,6 @@ const ProductDescriptionInfo = ({
           </div>
         </div>
       )}
-      {product.category ? (
-        <div className="pro-details-meta">
-          <span>Categories :</span>
-          <ul>
-            {product.category.map((single, key) => {
-              return (
-                <li key={key}>
-                  <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                    {single}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      ) : (
-        ""
-      )}
-      {product.tag ? (
-        <div className="pro-details-meta">
-          <span>Tags :</span>
-          <ul>
-            {product.tag.map((single, key) => {
-              return (
-                <li key={key}>
-                  <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                    {single}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      ) : (
-        ""
-      )}
 
       <div className="pro-details-social">
         <ul>
@@ -308,7 +260,7 @@ ProductDescriptionInfo.propTypes = {
   cartItems: PropTypes.array,
   compareItem: PropTypes.array,
   currency: PropTypes.object,
-  discountedPrice: PropTypes.number,
+  // discountedPrice: PropTypes.number,
   finalDiscountedPrice: PropTypes.number,
   finalProductPrice: PropTypes.number,
   product: PropTypes.object,

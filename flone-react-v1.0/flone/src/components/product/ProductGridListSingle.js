@@ -27,6 +27,8 @@ const ProductGridListSingle = ({
   //   discountedPrice * currency.currencyRate
   // ).toFixed(2);
 
+  console.log("compareItem", compareItem)
+
   return (
     <Fragment>
       <div
@@ -77,7 +79,7 @@ const ProductGridListSingle = ({
                       ? "Added to wishlist"
                       : "Add to wishlist"
                   }
-                  // onClick={() => addToWishlist(product, addToast)}
+                  onClick={() => addToWishlist(product, addToast)}
                 >
                   <i className="pe-7s-like" />
                 </button>
@@ -118,18 +120,9 @@ const ProductGridListSingle = ({
             ) : (
               ""
             )}
-            {/* <div className="product-price">
-              {discountedPrice !== null ? (
-                <Fragment>
-                  <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
-                  <span className="old">
-                    {currency.currencySymbol + finalProductPrice}
-                  </span>
-                </Fragment>
-              ) : (
-                <span>{currency.currencySymbol + finalProductPrice} </span>
-              )}
-            </div> */}
+            <div className="product-price">
+              <span>{currency.currencySymbol + finalProductPrice} </span>
+            </div>
           </div>
         </div>
         <div className="shop-list-wrap mb-30">
@@ -140,13 +133,13 @@ const ProductGridListSingle = ({
                   <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
                     <img
                       className="default-img img-fluid"
-                      src={process.env.PUBLIC_URL + product.image[0]}
+                      src={process.env.PUBLIC_URL + product.image}
                       alt=""
                     />
                     {product.image.length > 1 ? (
                       <img
                         className="hover-img img-fluid"
-                        src={process.env.PUBLIC_URL + product.image[1]}
+                        src={process.env.PUBLIC_URL + product.image}
                         alt=""
                       />
                     ) : (
@@ -172,24 +165,13 @@ const ProductGridListSingle = ({
               <div className="shop-list-content">
                 <h3>
                   <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
-                    {product.name}
+                    {product.productName}
                   </Link>
                 </h3>
-                {/* <div className="product-list-price">
-                  {discountedPrice !== null ? (
-                    <Fragment>
-                      <span>
-                        {currency.currencySymbol + finalDiscountedPrice}
-                      </span>{" "}
-                      <span className="old">
-                        {currency.currencySymbol + finalProductPrice}
-                      </span>
-                    </Fragment>
-                  ) : (
-                    <span>{currency.currencySymbol + finalProductPrice} </span>
-                  )}
-                </div> */}
-                {product.rating && product.rating > 0 ? (
+                <div className="product-list-price">
+                  <span>{currency.currencySymbol + finalProductPrice} </span>
+                </div>
+                {/* {product.rating && product.rating > 0 ? (
                   <div className="rating-review">
                     <div className="product-list-rating">
                       <Rating ratingValue={product.rating} />
@@ -197,58 +179,32 @@ const ProductGridListSingle = ({
                   </div>
                 ) : (
                   ""
-                )}
+                )} */}
                 {product.shortDescription ? (
-                  <p>{product.shortDescription}</p>
+                  <p>Ut enim ad minima veniam, quis nostrum exercitationem
+                  ullam corporis suscipit laboriosam, nisi ut aliquid ex ea
+                  commodi consequatur? Quis autem vel eum iure reprehenderit qui
+                  in ea voluptate velit esse quam nihil molestiae consequatur.</p>
                 ) : (
                   ""
                 )}
 
                 <div className="shop-list-actions d-flex align-items-center">
                   <div className="shop-list-btn btn-hover">
-                    {product.affiliateLink ? (
-                      <a
-                        href={product.affiliateLink}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >
-                        {" "}
-                        Buy now{" "}
-                      </a>
-                    ) : product.variation && product.variation.length >= 1 ? (
-                      <Link
-                        to={`${process.env.PUBLIC_URL}/product/${product.id}`}
-                      >
-                        Select Option
-                      </Link>
-                    ) : product.stock && product.stock > 0 ? (
-                      <button
-                        onClick={() => addToCart(product, addToast)}
-                        className={
-                          cartItem !== undefined && cartItem.quantity > 0
-                            ? "active"
-                            : ""
-                        }
-                        disabled={
-                          cartItem !== undefined && cartItem.quantity > 0
-                        }
-                        title={
-                          cartItem !== undefined
-                            ? "Added to cart"
-                            : "Add to cart"
-                        }
-                      >
-                        {" "}
-                        <i className="pe-7s-cart"></i>{" "}
-                        {cartItem !== undefined && cartItem.quantity > 0
-                          ? "Added"
-                          : "Add to cart"}
-                      </button>
-                    ) : (
-                      <button disabled className="active">
-                        Out of Stock
-                      </button>
-                    )}
+                  {product.variation.length >= 1 ? (
+                  <Link to={`${process.env.PUBLIC_URL}/product/${product.id}`}>
+                    Select Option
+                  </Link>
+                ) : (
+                  <a
+                    href={product.affiliateLink}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    {" "}
+                    Buy now{" "}
+                  </a>
+                )}
                   </div>
 
                   <div className="shop-list-wishlist ml-10">
@@ -286,14 +242,14 @@ const ProductGridListSingle = ({
         </div>
       </div>
       {/* product modal */}
-      {/* <ProductModal
+      <ProductModal
         show={modalShow}
         onHide={() => setModalShow(false)}
         product={product}
         currency={currency}
-        discountedprice={discountedPrice}
+        // discountedprice={discountedPrice}
         finalproductprice={finalProductPrice}
-        finaldiscountedprice={finalDiscountedPrice}
+        // finaldiscountedprice={finalDiscountedPrice}
         cartitem={cartItem}
         wishlistitem={wishlistItem}
         compareitem={compareItem}
@@ -301,7 +257,7 @@ const ProductGridListSingle = ({
         addtowishlist={addToWishlist}
         addtocompare={addToCompare}
         addtoast={addToast}
-      /> */}
+      />
     </Fragment>
   );
 };
