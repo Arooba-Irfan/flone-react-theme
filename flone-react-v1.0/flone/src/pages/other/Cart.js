@@ -25,6 +25,7 @@ const Cart = ({
   removeFromCart,
   removeAllFromCart
 }) => {
+  console.log("cartItems", cartItems);
   const [quantityCount] = useState(1);
   const { addToast } = useToasts();
   const { pathname } = location;
@@ -69,22 +70,25 @@ const Cart = ({
                         </thead>
                         <tbody>
                           {cartItems.map((cartItem, key) => {
-                            const discountedPrice = getDiscountPrice(
-                              cartItem.price,
-                              cartItem.discount
-                            );
+                            // const discountedPrice = getDiscountPrice(
+                            //   cartItem.price,
+                            //   cartItem.discount
+                            // );
                             const finalProductPrice = (
                               cartItem.price * currency.currencyRate
                             ).toFixed(2);
-                            const finalDiscountedPrice = (
-                              discountedPrice * currency.currencyRate
-                            ).toFixed(2);
+                            // const finalDiscountedPrice = (
+                            //   discountedPrice * currency.currencyRate
+                            // ).toFixed(2);
 
-                            discountedPrice != null
-                              ? (cartTotalPrice +=
-                                  finalDiscountedPrice * cartItem.quantity)
-                              : (cartTotalPrice +=
-                                  finalProductPrice * cartItem.quantity);
+                            cartTotalPrice +=
+                                  finalProductPrice * cartItem.quantity
+
+                            // discountedPrice != null
+                            //   ? (cartTotalPrice +=
+                            //       finalDiscountedPrice * cartItem.quantity)
+                            //   : (cartTotalPrice +=
+                            //       finalProductPrice * cartItem.quantity);
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
@@ -99,7 +103,7 @@ const Cart = ({
                                       className="img-fluid"
                                       src={
                                         process.env.PUBLIC_URL +
-                                        cartItem.image[0]
+                                        cartItem.image
                                       }
                                       alt=""
                                     />
@@ -114,7 +118,7 @@ const Cart = ({
                                       cartItem.id
                                     }
                                   >
-                                    {cartItem.name}
+                                    {cartItem.productName}
                                   </Link>
                                   {cartItem.selectedProductColor &&
                                   cartItem.selectedProductSize ? (
@@ -132,7 +136,7 @@ const Cart = ({
                                 </td>
 
                                 <td className="product-price-cart">
-                                  {discountedPrice !== null ? (
+                                  {/* {discountedPrice !== null ? (
                                     <Fragment>
                                       <span className="amount old">
                                         {currency.currencySymbol +
@@ -148,7 +152,11 @@ const Cart = ({
                                       {currency.currencySymbol +
                                         finalProductPrice}
                                     </span>
-                                  )}
+                                  )} */}
+                                   <span className="amount">
+                                      {currency.currencySymbol +
+                                        finalProductPrice}
+                                    </span>
                                 </td>
 
                                 <td className="product-quantity">
@@ -192,7 +200,7 @@ const Cart = ({
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
-                                  {discountedPrice !== null
+                                  {/* {discountedPrice !== null
                                     ? currency.currencySymbol +
                                       (
                                         finalDiscountedPrice * cartItem.quantity
@@ -200,7 +208,13 @@ const Cart = ({
                                     : currency.currencySymbol +
                                       (
                                         finalProductPrice * cartItem.quantity
-                                      ).toFixed(2)}
+                                      ).toFixed(2)} */}
+                                      {
+                                        currency.currencySymbol +
+                                        (
+                                          finalProductPrice * cartItem.quantity
+                                        ).toFixed(2)
+                                      }
                                 </td>
 
                                 <td className="product-remove">

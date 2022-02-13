@@ -4,6 +4,7 @@ import { LightgalleryProvider, LightgalleryItem } from "react-lightgallery";
 import Swiper from "react-id-swiper";
 
 const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
+  console.log("product image",product)
   const [gallerySwiper, getGallerySwiper] = useState(null);
   const [thumbnailSwiper, getThumbnailSwiper] = useState(null);
 
@@ -73,7 +74,7 @@ const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
           }`}
         >
           <div className="product-large-image-wrapper">
-            {product.discount || product.new ? (
+            {/* {product.discount || product.new ? (
               <div className="product-img-badges">
                 {product.discount ? (
                   <span className="pink">-{product.discount}%</span>
@@ -84,7 +85,7 @@ const ProductImageGalleryLeftThumb = ({ product, thumbPosition }) => {
               </div>
             ) : (
               ""
-            )}
+            )} */}
             <LightgalleryProvider>
               <Swiper {...gallerySwiperParams}>
                 {product.image &&
