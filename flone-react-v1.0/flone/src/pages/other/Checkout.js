@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
@@ -12,6 +12,26 @@ const Checkout = ({ location, cartItems, currency }) => {
   console.log("cartItems",cartItems)
   const { pathname } = location;
   let cartTotalPrice = 0;
+  const [user, setUser] = useState({
+    userName: "",
+    phone: "",
+    email: "",
+    address: "",
+    country :"",
+    city: "",
+    state: "",
+    zipCode: "",
+  })
+  const handleDataInput = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]:  e.target.value
+    })
+  }
+
+  const handleSubmit = (e) => {
+    console.log("submit ==> ", {...user, OrderItems:[...cartItems]})
+  }
 
   return (
     <Fragment>
@@ -39,20 +59,20 @@ const Checkout = ({ location, cartItems, currency }) => {
                     <div className="row">
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
-                          <label>Username</label>
-                          <input type="text" />
+                          <label>User Name</label>
+                          <input type="text" name="userName" onChange={handleDataInput}/>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Phone</label>
-                          <input type="text" />
+                          <input type="text" name="phone" onChange={handleDataInput}/>
                         </div>
                       </div>
                       <div className="col-lg-12 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Email Address</label>
-                          <input type="text" />
+                          <input type="text" name="email" onChange={handleDataInput}/>
                         </div>
                       </div>
                       {/* <div className="col-lg-6 col-md-6">
@@ -70,13 +90,13 @@ const Checkout = ({ location, cartItems, currency }) => {
                       <div className="col-lg-12">
                         <div className="billing-select mb-20">
                           <label>Country</label>
-                          <select>
-                            <option>Select a country</option>
-                            <option>Pakistan</option>
-                            <option>Canada</option>
-                            <option>UK</option>
-                            <option>USA</option>
-                            <option>UAE</option>
+                          <select name="country" onChange={handleDataInput}>
+                            <option value= {""}>Select a country</option>
+                            <option value= {"pak"}>Pakistan</option>
+                            <option value= {"canada"}>Canada</option>
+                            <option value= {"uk"}>UK</option>
+                            <option value= {"usa"}>USA</option>
+                            <option value= {"uae"}>UAE</option>
                           </select>
                         </div>
                       </div>
@@ -87,34 +107,36 @@ const Checkout = ({ location, cartItems, currency }) => {
                             className="billing-address"
                             placeholder="House number and street name"
                             type="text"
+                            name="address"
+                            onChange={handleDataInput}
                           />
-                          <input
+                          {/* <input
                             placeholder="Apartment, suite, unit etc."
                             type="text"
-                          />
+                          /> */}
                         </div>
                       </div>
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>Town / City</label>
-                          <input type="text" />
+                          <input type="text" name="city" onChange={handleDataInput}/>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>State / Province</label>
-                          <input type="text" />
+                          <input type="text" name="state" onChange={handleDataInput}/>
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Postcode / ZIP</label>
-                          <input type="text" />
+                          <input type="text" name="zipCode" onChange={handleDataInput}/>
                         </div>
                       </div>
                     </div>
 
-                    <div className="additional-info-wrap">
+                    {/* <div className="additional-info-wrap">
                       <h4>Additional information</h4>
                       <div className="additional-info">
                         <label>Order notes</label>
@@ -124,7 +146,7 @@ const Checkout = ({ location, cartItems, currency }) => {
                           defaultValue={""}
                         />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
@@ -199,7 +221,12 @@ const Checkout = ({ location, cartItems, currency }) => {
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
-                      <button className="btn-hover">Place Order</button>
+                      <button 
+                        className="btn-hover"
+                        onClick={handleSubmit}
+                      >
+                          Place Order
+                      </button>
                     </div>
                   </div>
                 </div>
