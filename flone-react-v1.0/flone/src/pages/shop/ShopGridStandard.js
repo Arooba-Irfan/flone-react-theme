@@ -96,6 +96,20 @@ const ShopGridStandard = ({location, products}) => {
       fetchProducts();
     }, [query])
 
+    useEffect(() => {
+      console.log("currentData",currentData)
+    }, [currentData])
+    
+
+    useEffect(() => {
+        let sortedProducts = getSortedProducts(fetchedProducts, sortType, sortValue);
+        const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
+        sortedProducts = filterSortedProducts;
+        console.log("sortedProducts",sortedProducts)
+        setSortedProducts(sortedProducts);
+        setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
+    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue,fetchedProducts ]);
+
     
     return (
         <Fragment>
@@ -120,15 +134,15 @@ const ShopGridStandard = ({location, products}) => {
                             </div>
                             <div className="col-lg-9 order-1 order-lg-2">
                                 {/* shop topbar default */}
-                                <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={products.length} sortedProductCount={currentData.length} />
+                                <ShopTopbar getLayout={getLayout} getFilterSortParams={getFilterSortParams} productCount={fetchedProducts.length} sortedProductCount={currentData.length} />
 
                                 {/* shop page content default */}
-                                <ShopProducts layout={layout} products={fetchedProducts} actionloading={actionloading}/>
+                                <ShopProducts layout={layout} products={currentData} actionloading={actionloading}/>
 
                                 {/* shop product pagination */}
                                 <div className="pro-pagination-style text-center mt-30">
                                     <Paginator
-                                        totalRecords={sortedProducts.length}
+                                        totalRecords={fetchedProducts.length}
                                         pageLimit={pageLimit}
                                         pageNeighbours={2}
                                         setOffset={setOffset}

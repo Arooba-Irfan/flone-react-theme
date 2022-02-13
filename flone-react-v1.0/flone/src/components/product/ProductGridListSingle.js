@@ -178,7 +178,7 @@ const ProductGridListSingle = ({
                   </Link>
                 </h3>
                 <div className="product-list-price">
-                  <span>{currency.currencySymbol + finalProductPrice} </span>
+                  {/* <span>{currency.currencySymbol + finalProductPrice} </span> */}
                 </div>
                 {/* {product.rating && product.rating > 0 ? (
                   <div className="rating-review">
@@ -257,7 +257,7 @@ const ProductGridListSingle = ({
         product={product}
         currency={currency}
         // discountedprice={discountedPrice}
-        finalproductprice={finalProductPrice}
+        // finalproductprice={finalProductPrice}
         // finaldiscountedprice={finalDiscountedPrice}
         cartitem={cartItem}
         wishlistitem={wishlistItem}
