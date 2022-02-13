@@ -1,7 +1,5 @@
 import PropTypes from "prop-types";
 import React from "react";
-import Tab from "react-bootstrap/Tab";
-import Nav from "react-bootstrap/Nav";
 import SectionTitle from "../../components/section-title/SectionTitle";
 import ProductGrid from "./ProductGrid";
 
@@ -18,9 +16,21 @@ const TabProduct = ({
       } ${bgColorClass ? bgColorClass : ""}`}
     >
       <div className="container">
-        <SectionTitle titleText="DAILY DEALS!" positionClass="text-center" />
-        <Tab.Container defaultActiveKey="bestSeller">
-          <Nav
+        <SectionTitle 
+          titleText="CATEGORIES" 
+          positionClass="text-center"
+          spaceClass="mb-55"
+        />
+        <div className="row">
+          <ProductGrid
+            category={category}
+            type="saleItems"
+            limit={8}
+            spaceBottomClass="mb-25"
+          />
+        </div>
+        {/* <Tab.Container defaultActiveKey="bestSeller">
+          {/* <Nav
             variant="pills"
             className="product-tab-list pt-30 pb-55 text-center"
           >
@@ -39,8 +49,8 @@ const TabProduct = ({
                 <h4>Sale Items</h4>
               </Nav.Link>
             </Nav.Item>
-          </Nav>
-          <Tab.Content>
+          </Nav> */}
+          {/* <Tab.Content>
             <Tab.Pane eventKey="newArrival">
               <div className="row">
                 <ProductGrid
@@ -72,7 +82,7 @@ const TabProduct = ({
               </div>
             </Tab.Pane>
           </Tab.Content>
-        </Tab.Container>
+        </Tab.Container>  */}
       </div>
     </div>
   );
