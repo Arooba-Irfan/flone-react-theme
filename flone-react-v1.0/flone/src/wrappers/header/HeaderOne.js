@@ -49,7 +49,8 @@ const HeaderOne = ({ layout, top, borderStyle, headerPaddingClass }) => {
           <div className="row">
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
               {/* header logo */}
-              <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo" />
+              {/* <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo" /> */}
+              <h1 className="logo" style={{fontWeight:"bold"}}>Brand Bucket.</h1>
             </div>
             <div className="col-xl-8 col-lg-8 d-none d-lg-block">
               {/* Nav menu */}

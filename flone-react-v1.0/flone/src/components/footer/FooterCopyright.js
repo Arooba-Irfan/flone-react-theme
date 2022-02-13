@@ -7,13 +7,13 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass }) => {
     <div className={`copyright ${spaceBottomClass ? spaceBottomClass : ""}`}>
       <div className="footer-logo">
         <Link to={process.env.PUBLIC_URL + "/"}>
-          <img alt="" src={process.env.PUBLIC_URL + footerLogo} />
+          <h3>Brand Bucket.</h3>
         </Link>
       </div>
       <p>
-        © 2019{" "}
+        © 2022{" "}
         <a href="//hasthemes.com" rel="noopener noreferrer" target="_blank">
-          Flone
+        Brand Bucket.
         </a>
         .<br /> All Rights Reserved
       </p>

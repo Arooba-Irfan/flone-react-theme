@@ -10,9 +10,10 @@ const NavMenu = ({ strings }) => {
         <ul>
           <li>
             <Link to={process.env.PUBLIC_URL + "/"}>
-              {strings["home"]} <i className="fa fa-angle-down" />
+              {/* {strings["home"]} <i className="fa fa-angle-down" /> */}
+              {strings["home"]}
             </Link>
-            <ul className="submenu">
+            {/* <ul className="submenu">
               <li>
                 <Link to={process.env.PUBLIC_URL + "/home-fashion"}>
                   {strings["home_fashion"]}
@@ -38,9 +39,9 @@ const NavMenu = ({ strings }) => {
                   {strings["home_organic_food"]}
                 </Link>
               </li>
-            </ul>
+            </ul> */}
           </li>
-          <li>
+          {/* <li>
             <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
               {" "}
               {strings["shop"]} <i className="fa fa-angle-down" />{" "}
@@ -174,13 +175,13 @@ const NavMenu = ({ strings }) => {
                 </ul>
               </li>
             </ul>
-          </li>
+          </li> */}
           <li>
             <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
               {strings["collection"]}
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link to={process.env.PUBLIC_URL + "/"}>
               {strings["pages"]} <i className="fa fa-angle-down" />
             </Link>
@@ -231,8 +232,8 @@ const NavMenu = ({ strings }) => {
                 </Link>
               </li>
             </ul>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
               {strings["blog"]} <i className="fa fa-angle-down" />
             </Link>
@@ -258,7 +259,7 @@ const NavMenu = ({ strings }) => {
                 </Link>
               </li>
             </ul>
-          </li>
+          </li> */}
           <li>
             <Link to={process.env.PUBLIC_URL + "/contact"}>
               {strings["contact_us"]}
