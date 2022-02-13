@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { setActiveSort } from "../../helpers/product";
 
-const ShopCategories = ({ categories, getSortParams }) => {
+const ShopCategories = ({ categories, getSortParams, handleQuery, setisPriceQuery }) => {
+  const [activeCat, setactiveCat] = useState("")
   return (
     <div className="sidebar-widget">
       <h4 className="pro-sidebar-title">Categories </h4>
@@ -12,9 +13,13 @@ const ShopCategories = ({ categories, getSortParams }) => {
             <li>
               <div className="sidebar-widget-list-left">
                 <button
+                  className={activeCat === "" ? 'active' : ''}
                   onClick={e => {
-                    getSortParams("category", "");
-                    setActiveSort(e);
+                    // getSortParams("category", "");
+                    handleQuery("category", "")
+                    setactiveCat("");
+                    setisPriceQuery(false);
+                    // setActiveSort(e);
                   }}
                 >
                   <span className="checkmark" /> All Categories
@@ -26,13 +31,17 @@ const ShopCategories = ({ categories, getSortParams }) => {
                 <li key={key}>
                   <div className="sidebar-widget-list-left">
                     <button
+                      className={activeCat === category._id ? 'active' : ''}
                       onClick={e => {
-                        getSortParams("category", category);
-                        setActiveSort(e);
+                        // getSortParams("category", category);
+                        handleQuery("category", category._id);
+                        setactiveCat(category._id);
+                        setisPriceQuery(false);
+                        // setActiveSort(e);
                       }}
                     >
                       {" "}
-                      <span className="checkmark" /> {category}{" "}
+                      <span className="checkmark" /> {category.name}{" "}
                     </button>
                   </div>
                 </li>

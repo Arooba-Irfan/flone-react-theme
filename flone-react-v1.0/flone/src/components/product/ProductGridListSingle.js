@@ -21,8 +21,8 @@ const ProductGridListSingle = ({
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
 
-  // const discountedPrice = getDiscountPrice(product.price, product.discount);
-  const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
+  const discountedPrice = getDiscountPrice(product.price, product.discountId?.percentage);
+  // const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
   // const finalDiscountedPrice = +(
   //   discountedPrice * currency.currencyRate
   // ).toFixed(2);
@@ -111,25 +111,25 @@ const ProductGridListSingle = ({
                 {product.productName}
               </Link>
             </h3>
-            {product.rating && product.rating > 0 ? (
+            {/* {product.rating && product.rating > 0 ? (
               <div className="product-rating">
                 <Rating ratingValue={product.rating} />
               </div>
             ) : (
               ""
-            )}
-            {/* <div className="product-price">
+            )} */}
+            <div className="product-price">
               {discountedPrice !== null ? (
                 <Fragment>
-                  <span>{currency.currencySymbol + finalDiscountedPrice}</span>{" "}
+                  <span>{currency.currencySymbol + discountedPrice}</span>{" "}
                   <span className="old">
-                    {currency.currencySymbol + finalProductPrice}
+                    {currency.currencySymbol + product.price}
                   </span>
                 </Fragment>
               ) : (
-                <span>{currency.currencySymbol + finalProductPrice} </span>
+                <span>{currency.currencySymbol + product.price} </span>
               )}
-            </div> */}
+            </div>
           </div>
         </div>
         <div className="shop-list-wrap mb-30">

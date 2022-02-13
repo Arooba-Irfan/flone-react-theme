@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { setActiveSort } from "../../helpers/product";
 
-const ShopSize = ({ sizes, getSortParams }) => {
+const ShopSize = ({ sizes, getSortParams, handleQuery, setisPriceQuery }) => {
+
+  const [activeSize, setActiveSize] = useState("")
   return (
     <div className="sidebar-widget mt-40">
       <h4 className="pro-sidebar-title">Size </h4>
@@ -12,9 +14,13 @@ const ShopSize = ({ sizes, getSortParams }) => {
             <li>
               <div className="sidebar-widget-list-left">
                 <button
+                  className={activeSize === "" ? 'active' : ''}
                   onClick={e => {
-                    getSortParams("size", "");
-                    setActiveSort(e);
+                    // getSortParams("size", "");
+                    handleQuery("size", "")
+                    setActiveSize("");
+                    setisPriceQuery(false);
+                    // setActiveSort(e);
                   }}
                 >
                   <span className="checkmark" /> All Sizes{" "}
@@ -26,10 +32,13 @@ const ShopSize = ({ sizes, getSortParams }) => {
                 <li key={key}>
                   <div className="sidebar-widget-list-left">
                     <button
-                      className="text-uppercase"
+                      className={`text-uppercase ${activeSize === size ? 'active' : ''}`}
                       onClick={e => {
-                        getSortParams("size", size);
-                        setActiveSort(e);
+                        // getSortParams("size", size);
+                        handleQuery("size", size);
+                        setActiveSize(size);
+                        setisPriceQuery(false);
+                        // setActiveSort(e);
                       }}
                     >
                       {" "}
