@@ -7,6 +7,8 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import Axios from "axios";
+const SERVER_URL = "http://localhost:8000";
 
 const Checkout = ({ location, cartItems, currency }) => {
   console.log("cartItems",cartItems)
@@ -29,8 +31,16 @@ const Checkout = ({ location, cartItems, currency }) => {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     console.log("submit ==> ", {...user, OrderItems:[...cartItems]})
+    let response;
+    try {
+      response = await Axios.post(SERVER_URL + "/api/orders", 
+      {...user, OrderItems:[...cartItems],deliveryCharges:0,subTotal:cartTotalPrice.toFixed(2),orderDate: Date.now()});
+      console.log("ORDER RESPONSE", response);
+    } catch (error) {
+      console.log("error", error.message);
+    }
   }
 
   return (
