@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { updateQuery } from './../../redux/actions/queryActions'
 import { setActiveSort } from "../../helpers/product";
 
-const ShopSize = ({ sizes, getSortParams, handleQuery, setisPriceQuery }) => {
+const ShopSize = ({ sizes, getSortParams, handleQuery, setisPriceQuery, updateQuery }) => {
 
   const [activeSize, setActiveSize] = useState("")
   return (
@@ -17,7 +19,8 @@ const ShopSize = ({ sizes, getSortParams, handleQuery, setisPriceQuery }) => {
                   className={activeSize === "" ? 'active' : ''}
                   onClick={e => {
                     // getSortParams("size", "");
-                    handleQuery("size", "")
+                    // handleQuery("size", "")
+                    updateQuery("size", "")
                     setActiveSize("");
                     setisPriceQuery(false);
                     // setActiveSort(e);
@@ -35,7 +38,8 @@ const ShopSize = ({ sizes, getSortParams, handleQuery, setisPriceQuery }) => {
                       className={`text-uppercase ${activeSize === size ? 'active' : ''}`}
                       onClick={e => {
                         // getSortParams("size", size);
-                        handleQuery("size", size);
+                        // handleQuery("size", size);
+                        updateQuery("size", size);
                         setActiveSize(size);
                         setisPriceQuery(false);
                         // setActiveSort(e);
@@ -63,4 +67,8 @@ ShopSize.propTypes = {
   sizes: PropTypes.array
 };
 
-export default ShopSize;
+const mapDispatchToProps = {
+  updateQuery
+} 
+
+export default connect(null, mapDispatchToProps)(ShopSize);

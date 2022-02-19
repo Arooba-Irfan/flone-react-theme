@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { updateQuery } from './../../redux/actions/queryActions'
 import { setActiveSort } from "../../helpers/product";
 
-const ShopColor = ({ colors, getSortParams, handleQuery, setisPriceQuery }) => {
+const ShopColor = ({ colors, getSortParams, handleQuery, setisPriceQuery, updateQuery, activeColor }) => {
 
-  const [activeColor, setActiveColor] = useState("")
+  // const [activeColor, setActiveColor] = useState("")
   return (
     <div className="sidebar-widget mt-50">
       <h4 className="pro-sidebar-title">Color </h4>
@@ -17,8 +19,9 @@ const ShopColor = ({ colors, getSortParams, handleQuery, setisPriceQuery }) => {
                   className={activeColor === "" ? 'active' : ''}
                   onClick={e => {
                     // getSortParams("color", "");
-                    handleQuery("color", "");
-                    setActiveColor("");
+                    // handleQuery("color", "");
+                    updateQuery("color", "");
+                    // setActiveColor("");
                     setisPriceQuery(false);
                     // setActiveSort(e);
                   }}
@@ -35,8 +38,9 @@ const ShopColor = ({ colors, getSortParams, handleQuery, setisPriceQuery }) => {
                       className={activeColor === color ? 'active' : ''}
                       onClick={e => {
                         // getSortParams("color", color);
-                        handleQuery("color", color);
-                        setActiveColor(color);
+                        // handleQuery("color", color);
+                        updateQuery("color", color);
+                        // setActiveColor(color);
                         setisPriceQuery(false);
                         // setActiveSort(e);
                       }}
@@ -61,4 +65,12 @@ ShopColor.propTypes = {
   getSortParams: PropTypes.func
 };
 
-export default ShopColor;
+const mapDispatchToProps = {
+  updateQuery
+}
+
+const mapStateToProps = state => ({
+  activeColor : state?.query?.color
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopColor);

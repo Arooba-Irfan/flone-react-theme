@@ -24,6 +24,10 @@ const Checkout = ({ location, cartItems, currency }) => {
     state: "",
     zipCode: "",
   })
+
+  const [isCard, setIsCard] = useState(false)
+  const [paymentMethod, setpaymentMethod] = useState("cod")
+  
   const handleDataInput = (e) => {
     setUser({
       ...user,
@@ -31,6 +35,7 @@ const Checkout = ({ location, cartItems, currency }) => {
     })
   }
 
+<<<<<<< HEAD
   const handleSubmit = async (e) => {
     console.log("submit ==> ", {...user, OrderItems:[...cartItems]})
     let response;
@@ -41,6 +46,15 @@ const Checkout = ({ location, cartItems, currency }) => {
     } catch (error) {
       console.log("error", error.message);
     }
+=======
+  const handlePaymentInput = (e) => {
+    setpaymentMethod(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    setIsCard(paymentMethod==="card")
+    // console.log("submit ==> ", {...user, OrderItems:[...cartItems]})
+>>>>>>> a5848439b0a6f3d4d6d29f17383f951b656f9245
   }
 
   return (
@@ -144,6 +158,32 @@ const Checkout = ({ location, cartItems, currency }) => {
                           <input type="text" name="zipCode" onChange={handleDataInput}/>
                         </div>
                       </div>
+                      <div className="col-lg-6 col-md-6">
+                        <div className="billing-info mb-20">
+                          <label>Payment Methods</label>
+                          <div  class="w-100 d-flex align-items-center">
+                            <input className="w-25" type="radio" name="paymentMethod" value="cod" onChange={handlePaymentInput} checked/>
+                            <span>CASH ON DELIVERY</span>
+                          </div>
+                          <div  class="w-100 d-flex align-items-center">
+                            <input className="w-25" type="radio" name="paymentMethod" value="card" onChange={handlePaymentInput}/>
+                            <span>CARD</span>
+                          </div>
+                          {/* <input type="radio" value="card" name="paymentMethod" /> Card */}
+                        </div>
+                      </div>
+                      {/* <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          Default radio
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          Default checked radio
+                        </label>
+                      </div> */}
                     </div>
 
                     {/* <div className="additional-info-wrap">
@@ -231,6 +271,9 @@ const Checkout = ({ location, cartItems, currency }) => {
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
+                      {/* <StripeCheckout stripeKey="">
+                        <button> Place Order</button>
+                      </StripeCheckout> */}
                       <button 
                         className="btn-hover"
                         onClick={handleSubmit}

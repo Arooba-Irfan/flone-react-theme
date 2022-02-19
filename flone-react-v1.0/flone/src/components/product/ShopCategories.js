@@ -1,9 +1,12 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { setActiveSort } from "../../helpers/product";
+import { updateQuery } from './../../redux/actions/queryActions'
 
-const ShopCategories = ({ categories, getSortParams, handleQuery, setisPriceQuery }) => {
-  const [activeCat, setactiveCat] = useState("")
+
+const ShopCategories = ({ categories, getSortParams, handleQuery, setisPriceQuery, updateQuery, activeCat }) => {
+  // const [activeCat, setactiveCat] = useState("")
   return (
     <div className="sidebar-widget">
       <h4 className="pro-sidebar-title">Categories </h4>
@@ -16,8 +19,9 @@ const ShopCategories = ({ categories, getSortParams, handleQuery, setisPriceQuer
                   className={activeCat === "" ? 'active' : ''}
                   onClick={e => {
                     // getSortParams("category", "");
-                    handleQuery("category", "")
-                    setactiveCat("");
+                    // handleQuery("category", "")
+                    updateQuery("category", "")
+                    // setactiveCat("");
                     setisPriceQuery(false);
                     // setActiveSort(e);
                   }}
@@ -34,8 +38,9 @@ const ShopCategories = ({ categories, getSortParams, handleQuery, setisPriceQuer
                       className={activeCat === category._id ? 'active' : ''}
                       onClick={e => {
                         // getSortParams("category", category);
-                        handleQuery("category", category._id);
-                        setactiveCat(category._id);
+                        // handleQuery("category", category._id);
+                        updateQuery("category", category._id)
+                        // setactiveCat(category._id);
                         setisPriceQuery(false);
                         // setActiveSort(e);
                       }}
@@ -61,4 +66,12 @@ ShopCategories.propTypes = {
   getSortParams: PropTypes.func
 };
 
-export default ShopCategories;
+const mapDispatchTOProps = {
+  updateQuery
+}
+
+const mapStateToProps = state => ({
+  activeCat : state?.query?.category
+})
+
+export default connect(mapStateToProps, mapDispatchTOProps)(ShopCategories);

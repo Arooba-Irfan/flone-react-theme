@@ -1,10 +1,12 @@
 import PropTypes from "prop-types";
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { setActiveSort } from "../../helpers/product";
+import { updateQuery } from './../../redux/actions/queryActions'
 
-const ShopBrands = ({ brands, getSortParams, handleQuery, setisPriceQuery }) => {
+const ShopBrands = ({ brands, getSortParams, handleQuery, setisPriceQuery, updateQuery, activeBrand }) => {
 
-  const [activeBrand, setActiveBrand] = useState("")
+  // const [activeBrand, setActiveBrand] = useState("")
   return (
     <div className="sidebar-widget mt-50">
       <h4 className="pro-sidebar-title">Brands</h4>
@@ -17,8 +19,9 @@ const ShopBrands = ({ brands, getSortParams, handleQuery, setisPriceQuery }) => 
                   className={activeBrand === "" ? 'active' : ''}
                   onClick={e => {
                     // getSortParams("brand", "");
-                    handleQuery("brand", "");
-                    setActiveBrand("")
+                    // handleQuery("brand", "");
+                    updateQuery("brand", "");
+                    // setActiveBrand("")
                     setisPriceQuery(false)
                     // setActiveSort(e);
                   }}
@@ -35,8 +38,9 @@ const ShopBrands = ({ brands, getSortParams, handleQuery, setisPriceQuery }) => 
                       className={activeBrand === brand._id ? 'active' : ''}
                       onClick={e => {
                         // getSortParams("brand", brand);
-                        handleQuery("brand", brand._id);
-                        setActiveBrand(brand._id)
+                        // handleQuery("brand", brand._id);
+                        updateQuery("brand", brand._id);
+                        // setActiveBrand(brand._id)
                         setisPriceQuery(false)
                         // setActiveSort(e);
                       }}
@@ -62,4 +66,12 @@ ShopBrands.propTypes = {
   getSortParams: PropTypes.func
 };
 
-export default ShopBrands;
+const mapDispatchTOProps = {
+  updateQuery
+} 
+
+const mapStateToProps = state => ({
+  activeBrand : state?.query?.brand
+})
+
+export default connect(mapStateToProps, mapDispatchTOProps)(ShopBrands);
