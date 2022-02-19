@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { updateQuery } from './../../redux/actions/queryActions'
 // import InputRange from 'react-input-range';
 
-const ShopPrice = ({handleQuery, maxPrice, setisPriceQuery}) => {
+const ShopPrice = ({handleQuery, maxPrice, setisPriceQuery, updateQuery, activePrice }) => {
 
   const [price, setPrice] = useState(maxPrice)
 
@@ -11,7 +13,8 @@ const ShopPrice = ({handleQuery, maxPrice, setisPriceQuery}) => {
   }, [maxPrice])
 
   useEffect(() => {
-    handleQuery('price', price);
+    // handleQuery('price', price);
+    updateQuery('price', price);
   }, [price])
   
   
@@ -25,7 +28,8 @@ const ShopPrice = ({handleQuery, maxPrice, setisPriceQuery}) => {
         min="0" 
         max={`${maxPrice}`}
         value={price} 
-        onChange={(e) =>{ 
+        onChange={(e) =>{
+          console.log("price changing") 
           setPrice(e.target.value);
           setisPriceQuery(true);
         }}
@@ -85,4 +89,12 @@ const ShopPrice = ({handleQuery, maxPrice, setisPriceQuery}) => {
   );
 }
 
-export default ShopPrice
+const mapDispatchToProps = {
+  updateQuery
+}
+
+const mapStateToProps = state => ({
+  activePrice : state?.query?.price
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPrice)

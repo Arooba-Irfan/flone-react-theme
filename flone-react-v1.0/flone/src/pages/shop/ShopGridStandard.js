@@ -11,8 +11,9 @@ import ShopSidebar from '../../wrappers/product/ShopSidebar';
 import ShopTopbar from '../../wrappers/product/ShopTopbar';
 import ShopProducts from '../../wrappers/product/ShopProducts';
 import axios from 'axios';
+import { resetQuery } from "../../redux/actions/queryActions";
 
-const ShopGridStandard = ({location, products}) => {
+const ShopGridStandard = ({location, products, queryState, resetQuery}) => {
     const [layout, setLayout] = useState('grid three-column');
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
@@ -31,7 +32,7 @@ const ShopGridStandard = ({location, products}) => {
     const {pathname} = location;
 
     const handleQuery = (field, value) => {
-        console.log("from query", field, value)
+        // console.log("from query", field, value)
         let modQuery = {
             ...query,
             [`${field}`]: value
@@ -55,19 +56,14 @@ const ShopGridStandard = ({location, products}) => {
     }
 
     // useEffect(() => {
-    //   function fetchProducts(){
-    //     axios
-    //       .get(
-    //         "http://localhost:8000/api/products"
-    //       )
-    //       .then((response) => {
-    //         console.log("response", response.data.data.products);
-    //         setFetchedProducts(response.data.data.products)
-    //       });
-    //   }
-
-    //   fetchProducts();
+    //   console.log("standard grid")
+    //   resetQuery()
     // }, []);
+
+    useEffect(() => {
+      console.log("Hello fom CDM")
+    }, [])
+    
 
     useEffect(() => {
         let sortedProducts = getSortedProducts(products, sortType, sortValue);
@@ -83,18 +79,19 @@ const ShopGridStandard = ({location, products}) => {
         axios
           .get(
             "http://localhost:8000/api/products",{
-                params:{...query}
+                params:{...queryState}
             }
           )
           .then((response) => {
             // console.log("response after query", response.data.data.products);
+            console.log("fetched products ==>", response.data.data.products)
             setFetchedProducts(response.data.data.products)
             setactionloading(false) 
           });
       }
 
       fetchProducts();
-    }, [query])
+    }, [queryState])
 
     useEffect(() => {
       console.log("currentData",currentData)
@@ -169,8 +166,13 @@ ShopGridStandard.propTypes = {
 
 const mapStateToProps = state => {
     return{
-        products: state.productData.products
+        products: state.productData.products,
+        queryState: state.query
     }
 }
 
-export default connect(mapStateToProps)(ShopGridStandard);
+const mapDispatchToProps = {
+    resetQuery
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopGridStandard);
