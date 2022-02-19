@@ -7,6 +7,9 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+
+import Axios from "axios";
+const SERVER_URL = "http://localhost:8000";
 // import StripeCheckout from "react-stripe-checkout";
 
 const Checkout = ({ location, cartItems, currency }) => {
@@ -34,13 +37,17 @@ const Checkout = ({ location, cartItems, currency }) => {
     })
   }
 
-  const handlePaymentInput = (e) => {
-    setpaymentMethod(e.target.value)
-  }
+  const handleSubmit = async (e) => {
+    console.log("submit ==> ", {...user, OrderItems:[...cartItems]})
+    let response;
+    try {
+      response = await Axios.post(SERVER_URL + "/api/orders", 
+      {...user, OrderItems:[...cartItems],deliveryCharges:0,subTotal:cartTotalPrice.toFixed(2),orderDate: Date.now()});
+      console.log("ORDER RESPONSE", response);
+    } catch (error) {
+      console.log("error", error.message);
+    }
 
-  const handleSubmit = (e) => {
-    setIsCard(paymentMethod==="card")
-    // console.log("submit ==> ", {...user, OrderItems:[...cartItems]})
   }
 
   return (
