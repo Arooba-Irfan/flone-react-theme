@@ -93,7 +93,7 @@ const ShopSidebar = ({ products, getSortParams, handleQuery, sideSpaceClass }) =
       {/* <ShopTag tags={uniqueTags} getSortParams={getSortParams} /> */}
 
       {/* filter by price */}
-      <ShopPrice handleQuery={handleQuery} maxPrice={maxPrice} setisPriceQuery={setisPriceQuery}/>
+      {/* <ShopPrice handleQuery={handleQuery} maxPrice={maxPrice} setisPriceQuery={setisPriceQuery}/> */}
     </div>
   );
 };

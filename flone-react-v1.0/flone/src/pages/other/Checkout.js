@@ -7,10 +7,9 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-
 import Axios from "axios";
+import StripeCheckout from "react-stripe-checkout";
 const SERVER_URL = "http://localhost:8000";
-// import StripeCheckout from "react-stripe-checkout";
 
 const Checkout = ({ location, cartItems, currency }) => {
   console.log("cartItems",cartItems)
@@ -37,17 +36,40 @@ const Checkout = ({ location, cartItems, currency }) => {
     })
   }
 
-  const handleSubmit = async (e) => {
+  const handlePaymentInput = (e) => {
+    // setIsCard(paymentMethod==="card")
+    console.log("changeinf payment", e.target.value)
+    setpaymentMethod(e.target.value)
+    setIsCard(e.target.value==="card")
+  }
+
+  const handleSubmit = async () => {
     console.log("submit ==> ", {...user, OrderItems:[...cartItems]})
     let response;
     try {
       response = await Axios.post(SERVER_URL + "/api/orders", 
-      {...user, OrderItems:[...cartItems],deliveryCharges:0,subTotal:cartTotalPrice.toFixed(2),orderDate: Date.now()});
+      {...user, OrderItems:[...cartItems],deliveryCharges:0,subTotal:cartTotalPrice.toFixed(2),orderDate: Date.now(), paymentMethod});
       console.log("ORDER RESPONSE", response);
+      alert("Order has been placed successfully")
+      // history.pus
     } catch (error) {
       console.log("error", error.message);
     }
+  }
 
+  const makePayment = (token) => {
+    const body = {
+      amount: cartTotalPrice * 100,
+      token
+    }
+    Axios.post(SERVER_URL + "/api/payments", {
+      ...body
+    })
+    .then(response => {
+      console.log("response",response)
+      handleSubmit()
+    })
+    .catch(err => console.log(err))
   }
 
   return (
@@ -264,15 +286,25 @@ const Checkout = ({ location, cartItems, currency }) => {
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
-                      {/* <StripeCheckout stripeKey="">
-                        <button> Place Order</button>
-                      </StripeCheckout> */}
-                      <button 
-                        className="btn-hover"
-                        onClick={handleSubmit}
-                      >
+                      {
+                        isCard ?
+                        <StripeCheckout 
+                          stripeKey="pk_test_51KUJs3J2BxS3GLbaKEGxVhPx7NaK6kWs3vuBn75BCeq7Z9jSzAzwf0nf6yNQslbuYIjCVjEj2eGtLctiKNQMRJeO00MWNgQJXM"
+                          token={makePayment}
+                          amount={cartTotalPrice}
+                          name="payment"
+                        >
+                          <button> Place Order</button>
+                        </StripeCheckout> 
+                        :<button 
+                          className="btn-hover"
+                          onClick={handleSubmit}
+                        >
                           Place Order
-                      </button>
+                        </button>
+                      }
+                      
+                      
                     </div>
                   </div>
                 </div>

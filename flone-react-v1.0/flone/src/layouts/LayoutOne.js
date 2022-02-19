@@ -17,11 +17,11 @@ const LayoutOne = ({
         headerPaddingClass={headerPaddingClass}
       />
       {children}
-      <FooterOne
+      {/* <FooterOne
         backgroundColorClass="bg-gray"
         spaceTopClass="pt-100"
         spaceBottomClass="pb-70"
-      />
+      /> */}
     </Fragment>
   );
 };
