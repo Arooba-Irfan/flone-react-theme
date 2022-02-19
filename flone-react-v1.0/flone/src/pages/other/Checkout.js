@@ -7,8 +7,10 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+
 import Axios from "axios";
 const SERVER_URL = "http://localhost:8000";
+// import StripeCheckout from "react-stripe-checkout";
 
 const Checkout = ({ location, cartItems, currency }) => {
   console.log("cartItems",cartItems)
@@ -35,7 +37,6 @@ const Checkout = ({ location, cartItems, currency }) => {
     })
   }
 
-<<<<<<< HEAD
   const handleSubmit = async (e) => {
     console.log("submit ==> ", {...user, OrderItems:[...cartItems]})
     let response;
@@ -46,15 +47,7 @@ const Checkout = ({ location, cartItems, currency }) => {
     } catch (error) {
       console.log("error", error.message);
     }
-=======
-  const handlePaymentInput = (e) => {
-    setpaymentMethod(e.target.value)
-  }
 
-  const handleSubmit = (e) => {
-    setIsCard(paymentMethod==="card")
-    // console.log("submit ==> ", {...user, OrderItems:[...cartItems]})
->>>>>>> a5848439b0a6f3d4d6d29f17383f951b656f9245
   }
 
   return (
