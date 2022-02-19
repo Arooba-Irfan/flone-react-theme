@@ -10,7 +10,7 @@ const CategoryOneSingle = ({ data, sliderClass, updateQuery }) => {
       className={`collection-product-2 ${sliderClass ? sliderClass : ""}`}
       onClick = {() => updateQuery("category", data._id)}
     >
-      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+      <Link to={process.env.PUBLIC_URL + "/collection"}>
         <img src={data.image} alt=""/>
       </Link>
       <div className="collection-content-2 text-center">

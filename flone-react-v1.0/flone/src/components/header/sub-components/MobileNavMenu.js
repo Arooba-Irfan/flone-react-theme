@@ -39,18 +39,18 @@ const MobileNavMenu = ({ strings }) => {
         </li>
 
         <li className="menu-item-has-children">
-          <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+          <Link to={process.env.PUBLIC_URL + "/collection"}>
             {" "}
             {strings["shop"]}
           </Link>
           <ul className="sub-menu">
             <li className="menu-item-has-children">
-              <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+              <Link to={process.env.PUBLIC_URL + "/collection"}>
                 {strings["shop_layout"]}
               </Link>
               <ul className="sub-menu">
                 <li>
-                  <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                  <Link to={process.env.PUBLIC_URL + "/collection"}>
                     {strings["shop_grid_standard"]}
                   </Link>
                 </li>
@@ -153,7 +153,7 @@ const MobileNavMenu = ({ strings }) => {
           </ul>
         </li>
         <li>
-          <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+          <Link to={process.env.PUBLIC_URL + "/collection"}>
             {strings["collection"]}
           </Link>
         </li>

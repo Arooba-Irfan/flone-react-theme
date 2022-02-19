@@ -318,7 +318,7 @@ const Checkout = ({ location, cartItems, currency }) => {
                     </div>
                     <div className="item-empty-area__text">
                       No items found in cart to checkout <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                      <Link to={process.env.PUBLIC_URL + "/collection"}>
                         Shop Now
                       </Link>
                     </div>

@@ -42,7 +42,7 @@ const NavMenu = ({ strings }) => {
             </ul> */}
           </li>
           {/* <li>
-            <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+            <Link to={process.env.PUBLIC_URL + "/collection"}>
               {" "}
               {strings["shop"]} <i className="fa fa-angle-down" />{" "}
             </Link>
@@ -50,12 +50,12 @@ const NavMenu = ({ strings }) => {
               <li>
                 <ul>
                   <li className="mega-menu-title">
-                    <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                    <Link to={process.env.PUBLIC_URL + "/collection"}>
                       {strings["shop_layout"]}
                     </Link>
                   </li>
                   <li>
-                    <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                    <Link to={process.env.PUBLIC_URL + "/collection"}>
                       {strings["shop_grid_standard"]}
                     </Link>
                   </li>
@@ -162,7 +162,7 @@ const NavMenu = ({ strings }) => {
               <li>
                 <ul>
                   <li className="mega-menu-img">
-                    <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                    <Link to={process.env.PUBLIC_URL + "/collection"}>
                       <img
                         src={
                           process.env.PUBLIC_URL +
@@ -177,7 +177,7 @@ const NavMenu = ({ strings }) => {
             </ul>
           </li> */}
           <li>
-            <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+            <Link to={process.env.PUBLIC_URL + "/collection"}>
               {strings["collection"]}
             </Link>
           </li>
