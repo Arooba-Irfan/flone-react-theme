@@ -9,9 +9,11 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import Axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
-const SERVER_URL = "http://localhost:8000";
+import {removeAllFromCart} from "./../../redux/actions/cartActions"
+import { useHistory } from "react-router-dom";
+const SERVER_URL = "http://localhost:8000"; 
 
-const Checkout = ({ location, cartItems, currency }) => {
+const Checkout = ({ location, cartItems, currency, removeAllFromCart }) => {
   console.log("cartItems",cartItems)
   const { pathname } = location;
   let cartTotalPrice = 0;
@@ -26,8 +28,10 @@ const Checkout = ({ location, cartItems, currency }) => {
     zipCode: "",
   })
 
+  const history = useHistory()
   const [isCard, setIsCard] = useState(false)
   const [paymentMethod, setpaymentMethod] = useState("cod")
+  const [actionLoading, setactionLoading] = useState(false)
   
   const handleDataInput = (e) => {
     setUser({
@@ -45,13 +49,16 @@ const Checkout = ({ location, cartItems, currency }) => {
 
   const handleSubmit = async () => {
     console.log("submit ==> ", {...user, OrderItems:[...cartItems]})
+    setactionLoading(true);
     let response;
     try {
       response = await Axios.post(SERVER_URL + "/api/orders", 
       {...user, OrderItems:[...cartItems],deliveryCharges:0,subTotal:cartTotalPrice.toFixed(2),orderDate: Date.now(), paymentMethod});
       console.log("ORDER RESPONSE", response);
-      alert("Order has been placed successfully")
-      // history.pus
+      removeAllFromCart();
+      setactionLoading(false);
+      alert("Order has been placed successfully");
+      history.push('/collection')
     } catch (error) {
       console.log("error", error.message);
     }
@@ -90,6 +97,7 @@ const Checkout = ({ location, cartItems, currency }) => {
         <Breadcrumb />
         <div className="checkout-area pt-95 pb-100">
           <div className="container">
+            {actionLoading && <div className="overlay"></div>}
             {cartItems && cartItems.length >= 1 ? (
               <div className="row">
                 <div className="col-lg-7">
@@ -177,28 +185,25 @@ const Checkout = ({ location, cartItems, currency }) => {
                         <div className="billing-info mb-20">
                           <label>Payment Methods</label>
                           <div  class="w-100 d-flex align-items-center">
-                            <input className="w-25" type="radio" name="paymentMethod" value="cod" onChange={handlePaymentInput} checked/>
-                            <span>CASH ON DELIVERY</span>
+                            <input className="w-25" 
+                              type="radio"
+                              value="cod"
+                              checked={paymentMethod === "cod"}
+                              onChange={handlePaymentInput}
+                            />
+                            <span>Charge ON Delivery</span>
                           </div>
                           <div  class="w-100 d-flex align-items-center">
-                            <input className="w-25" type="radio" name="paymentMethod" value="card" onChange={handlePaymentInput}/>
+                            <input className="w-25" 
+                              type="radio"
+                              value="card"
+                              checked={paymentMethod === "card"}
+                              onChange={handlePaymentInput}
+                            />
                             <span>CARD</span>
                           </div>
-                          {/* <input type="radio" value="card" name="paymentMethod" /> Card */}
                         </div>
                       </div>
-                      {/* <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                          Default radio
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
-                        <label class="form-check-label" for="flexRadioDefault2">
-                          Default checked radio
-                        </label>
-                      </div> */}
                     </div>
 
                     {/* <div className="additional-info-wrap">
@@ -294,7 +299,9 @@ const Checkout = ({ location, cartItems, currency }) => {
                           amount={cartTotalPrice}
                           name="payment"
                         >
-                          <button> Place Order</button>
+                         <div className="place-order mt-25">
+                          <button className="btn-hover"> Place Order</button>
+                         </div>
                         </StripeCheckout> 
                         :<button 
                           className="btn-hover"
@@ -346,4 +353,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Checkout);
+const mapDispatchToProps = {
+  removeAllFromCart
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

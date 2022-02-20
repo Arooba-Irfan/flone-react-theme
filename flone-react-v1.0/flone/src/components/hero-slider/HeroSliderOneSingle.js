@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import ShopImage from "../../assets/images/shop-banner.jpg"
+import ShopImg from "./../../assets/images/shop-banner.jpg"
 
 const HeroSliderOneSingle = ({ data, sliderClassName }) => {
   return (
@@ -11,7 +11,7 @@ const HeroSliderOneSingle = ({ data, sliderClassName }) => {
       }`}
     >
       <div className="container">
-        <div className="row">
+        <div className="row mb-40">
           <div className="col-xl-6 col-lg-6 col-md-6 col-12 col-sm-6">
             <div className="slider-content slider-animated-1">
               <h3 className="animated">{data.title}</h3>
@@ -30,7 +30,7 @@ const HeroSliderOneSingle = ({ data, sliderClassName }) => {
             <div className="slider-single-img slider-animated-1">
               <img
                 className="animated img-fluid"
-                src={ShopImage}
+                src={ShopImg}
                 alt=""
               />
             </div>

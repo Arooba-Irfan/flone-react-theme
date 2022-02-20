@@ -53,17 +53,7 @@ const ShopGridStandard = ({location, products, queryState, resetQuery}) => {
     const getFilterSortParams = (sortType, sortValue) => {
         setFilterSortType(sortType);
         setFilterSortValue(sortValue);
-    }
-
-    // useEffect(() => {
-    //   console.log("standard grid")
-    //   resetQuery()
-    // }, []);
-
-    useEffect(() => {
-      console.log("Hello fom CDM")
-    }, [])
-    
+    }    
 
     useEffect(() => {
         let sortedProducts = getSortedProducts(products, sortType, sortValue);

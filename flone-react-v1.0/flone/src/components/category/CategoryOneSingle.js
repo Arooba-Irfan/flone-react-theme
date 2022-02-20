@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { updateQuery } from './../../redux/actions/queryActions'
 
-const CategoryOneSingle = ({ data, sliderClass, updateQuery }) => {
+const CategoryOneSingle = ({ data, sliderClass, updateQuery, linkCat }) => {
   return (
     <div 
       className={`collection-product-2 ${sliderClass ? sliderClass : ""}`}
-      onClick = {() => updateQuery("category", data._id)}
+      onClick = {() => updateQuery(linkCat, data._id)}
     >
       <Link to={process.env.PUBLIC_URL + "/collection"}>
         <img src={data.image} alt=""/>

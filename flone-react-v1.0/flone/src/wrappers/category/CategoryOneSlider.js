@@ -11,7 +11,8 @@ const CategoryOneSlider = ({
   spaceBottomClass,
   bgColorClass,
   data,
-  sectionName
+  sectionName,
+  linkCat
 }) => {
   // swiper slider settings
   const settings = {
@@ -52,6 +53,7 @@ const CategoryOneSlider = ({
                   data={single}
                   key={key}
                   sliderClass="swiper-slide"
+                  linkCat={linkCat}
                 />
               );
             })}

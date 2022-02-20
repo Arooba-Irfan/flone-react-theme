@@ -51,11 +51,11 @@ const HomeFashion = () => {
 
         {/* tab product */}
         {/* <TabProduct spaceBottomClass="pb-60" spaceTopClass="pt-70" category="fashion" /> */}
-        <CategoryOneSlider spaceBottomClass="pb-95" spaceTopClass="pt-70" data={categoryData} sectionName={"categories"}/>
+        <CategoryOneSlider spaceBottomClass="pb-95" spaceTopClass="pt-70" data={categoryData} sectionName={"categories"} linkCat={"category"}/>
 
         {/* blog featured */}
         {/* <BlogFeatured spaceBottomClass="pb-55" /> */}
-        <CategoryOneSlider spaceBottomClass="pb-95" spaceTopClass="pt-70" data={brandData} sectionName={"brands"}/>
+        <CategoryOneSlider spaceBottomClass="pb-95" spaceTopClass="pt-70" data={brandData} sectionName={"brands"} linkCat="brand"/>
       </LayoutOne>
     </Fragment>
   );
