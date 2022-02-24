@@ -30,7 +30,7 @@ const Wishlist = ({
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Wishlist</title>
+        <title>BrandBucket | Wishlist</title>
         <meta
           name="description"
           content="Wishlist page of flone react minimalist eCommerce template."
@@ -42,7 +42,8 @@ const Wishlist = ({
         Wishlist
       </BreadcrumbsItem>
 
-      <LayoutOne headerTop="visible">
+      <LayoutOne headerContainerClass="container-fluid"
+        headerPaddingClass="header-padding-1">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="cart-main-area pt-90 pb-100">

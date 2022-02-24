@@ -12,7 +12,7 @@ const Contact = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Contact</title>
+        <title>BrandBucket | Contact</title>
         <meta
           name="description"
           content="Contact of flone react minimalist eCommerce template."
@@ -22,7 +22,9 @@ const Contact = ({ location }) => {
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Contact
       </BreadcrumbsItem>
-      <LayoutOne headerTop="visible">
+      <LayoutOne 
+        headerContainerClass="container-fluid"
+        headerPaddingClass="header-padding-1">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="contact-area pt-100 pb-100">

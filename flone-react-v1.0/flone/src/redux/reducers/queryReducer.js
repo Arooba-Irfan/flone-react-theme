@@ -13,7 +13,7 @@ export const queryReducer = (state = initialState, {type, payload}) => {
   console.log("payload from reducer ==> ", payload)
   switch (type) {
     case UPDATE_QUERY:
-      return{
+      return {
         ...state,
         [payload.field]: payload.value
       }

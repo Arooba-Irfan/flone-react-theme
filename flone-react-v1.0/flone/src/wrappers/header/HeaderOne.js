@@ -5,6 +5,7 @@ import NavMenu from "../../components/header/NavMenu";
 import IconGroup from "../../components/header/IconGroup";
 import MobileMenu from "../../components/header/MobileMenu";
 import HeaderTop from "../../components/header/HeaderTop";
+import logo from "../../assets/images/logo.png"
 
 const HeaderOne = ({ layout, top, borderStyle, headerPaddingClass }) => {
   const [scroll, setScroll] = useState(0);
@@ -34,7 +35,7 @@ const HeaderOne = ({ layout, top, borderStyle, headerPaddingClass }) => {
       >
         <div className={layout === "container-fluid" ? layout : "container"}>
           {/* header top */}
-          {/* <HeaderTop borderStyle={borderStyle} /> */}
+          <HeaderTop borderStyle={borderStyle} />
         </div>
       </div>
 
@@ -47,16 +48,21 @@ const HeaderOne = ({ layout, top, borderStyle, headerPaddingClass }) => {
       >
         <div className={layout === "container-fluid" ? layout : "container"}>
           <div className="row">
-            <div className="col-xl-2 col-lg-2 col-md-6 col-4">
+            <div className="col-xl-3 col-lg-3 col-md-6 col-4" style={{display:"contents"}}>
               {/* header logo */}
               {/* <Logo imageUrl="/assets/img/logo/logo.png" logoClass="logo" /> */}
-              <h1 className="logo" style={{fontWeight:"bold"}}>Brand Bucket.</h1>
+              <img 
+                src={logo}
+                width="100px"
+                height="100px"
+              />
+              <h1 className="logo" style={{fontWeight:"bold"}}>Brand Bucket</h1>
             </div>
-            <div className="col-xl-8 col-lg-8 d-none d-lg-block">
+            <div className="col-xl-6 col-lg-6 d-none d-lg-block">
               {/* Nav menu */}
               <NavMenu />
             </div>
-            <div className="col-xl-2 col-lg-2 col-md-6 col-8">
+            <div className="col-xl-3 col-lg-3 col-md-6 col-8">
               {/* Icon group */}
               <IconGroup />
             </div>

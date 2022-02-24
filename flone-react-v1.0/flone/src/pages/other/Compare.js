@@ -26,7 +26,7 @@ const Compare = ({
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Compare</title>
+        <title>BrandBucket | Compare</title>
         <meta
           name="description"
           content="Compare page of flone react minimalist eCommerce template."
@@ -36,7 +36,10 @@ const Compare = ({
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Compare
       </BreadcrumbsItem>
-      <LayoutOne headerTop="visible">
+      <LayoutOne 
+        headerContainerClass="container-fluid"
+        headerPaddingClass="header-padding-1"
+      >
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="compare-main-area pt-90 pb-100">

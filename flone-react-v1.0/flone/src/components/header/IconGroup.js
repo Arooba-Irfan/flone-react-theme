@@ -4,14 +4,20 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { removeFromCart } from "../../redux/actions/cartActions";
+import { logout } from "../../redux/actions/authActions";
+import { useToasts } from "react-toast-notifications";
 
 const IconGroup = ({
   currency,
   cartData,
   wishlistData,
   compareData,
-  removeFromCart
+  removeFromCart,
+  auth,
+  logout
 }) => {
+
+  const {addToast} = useToasts()
   const handleClick = e => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -48,7 +54,10 @@ const IconGroup = ({
         <div className="account-dropdown">
           <ul>
             <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
+              {Object.keys(auth).length === 0 ? <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link> 
+              : <h6 style={{cursor:"pointer"}} onClick={() => {
+                console.log("clicked")
+                logout(addToast)}}>Logout</h6>}
             </li>
             <li>
               <Link to={process.env.PUBLIC_URL + "/login-register"}>
@@ -126,16 +135,14 @@ const mapStateToProps = state => {
     currency: state.currencyData,
     cartData: state.cartData,
     wishlistData: state.wishlistData,
-    compareData: state.compareData
+    compareData: state.compareData,
+    auth: state.auth.user
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    removeFromCart: (item, addToast) => {
-      dispatch(removeFromCart(item, addToast));
-    }
-  };
+const mapDispatchToProps = {
+  removeFromCart,
+  logout
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(IconGroup);

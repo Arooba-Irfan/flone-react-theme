@@ -4,10 +4,11 @@ const MobileSearch = () => {
   return (
     <div className="offcanvas-mobile-search-area">
       <form action="#">
-        <input type="search" placeholder="Search ..." />
-        <button type="submit">
+        {/* <input type="search" placeholder="Search ..." /> */}
+        <h3>Menu</h3>
+        {/* <button type="submit">
           <i className="fa fa-search" />
-        </button>
+        </button> */}
       </form>
     </div>
   );

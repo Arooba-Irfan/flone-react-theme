@@ -99,7 +99,7 @@ const FooterTwo = ({
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Flone
+                BrandBucket
               </a>
               . All Rights Reserved.
             </p>

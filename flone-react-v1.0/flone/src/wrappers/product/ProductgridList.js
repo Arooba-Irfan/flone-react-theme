@@ -18,12 +18,12 @@ const ProductGrid = ({
   sliderClassName,
   spaceBottomClass
 }) => {
-  console.log("compare items state", compareItems)
+  // console.log("compare items state", compareItems)
   return (
     console.log("products", products),
     <Fragment>
       {products.map(product => {
-        console.log("product", product);
+        // console.log("product", product);
         return (
           <ProductGridListSingle
             sliderClassName={sliderClassName}

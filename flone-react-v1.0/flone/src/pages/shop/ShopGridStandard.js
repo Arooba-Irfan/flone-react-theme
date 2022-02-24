@@ -11,9 +11,9 @@ import ShopSidebar from '../../wrappers/product/ShopSidebar';
 import ShopTopbar from '../../wrappers/product/ShopTopbar';
 import ShopProducts from '../../wrappers/product/ShopProducts';
 import axios from 'axios';
-import { resetQuery } from "../../redux/actions/queryActions";
+import { updateQuery } from "../../redux/actions/queryActions";
 
-const ShopGridStandard = ({location, products, queryState, resetQuery}) => {
+const ShopGridStandard = ({location, queryState, updateQuery}) => {
     const [layout, setLayout] = useState('grid three-column');
     const [sortType, setSortType] = useState('');
     const [sortValue, setSortValue] = useState('');
@@ -32,7 +32,7 @@ const ShopGridStandard = ({location, products, queryState, resetQuery}) => {
     const {pathname} = location;
 
     const handleQuery = (field, value) => {
-        // console.log("from query", field, value)
+        console.log("from HandleQueryquery", field, value)
         let modQuery = {
             ...query,
             [`${field}`]: value
@@ -53,38 +53,49 @@ const ShopGridStandard = ({location, products, queryState, resetQuery}) => {
     const getFilterSortParams = (sortType, sortValue) => {
         setFilterSortType(sortType);
         setFilterSortValue(sortValue);
-    }    
-
-    useEffect(() => {
-        let sortedProducts = getSortedProducts(products, sortType, sortValue);
-        const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
-        sortedProducts = filterSortedProducts;
-        setSortedProducts(sortedProducts);
-        setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue ]);
-
-    useEffect(() => {
-      setactionloading(true);
-      function fetchProducts(){
+    }
+    
+    const fetchProducts = () => {
+        console.log("fetchProducts", queryState)
         axios
           .get(
             "http://localhost:8000/api/products",{
-                params:{...queryState}
+                params: {...queryState}
             }
           )
           .then((response) => {
-            // console.log("response after query", response.data.data.products);
-            console.log("fetched products ==>", response.data.data.products)
+              console.log("helloquery", queryState)
+            console.log("response after query", response.data.data.products);
             setFetchedProducts(response.data.data.products)
             setactionloading(false) 
           });
       }
 
-      fetchProducts();
+    useEffect(() => {
+        console.log("fetchedProducts of sorted", fetchedProducts)
+        let sortedProducts = getSortedProducts(fetchedProducts, sortType, sortValue);
+        const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
+        sortedProducts = filterSortedProducts;
+        setSortedProducts(sortedProducts);
+        setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
+    }, [offset, fetchedProducts, sortType, sortValue, filterSortType, filterSortValue ]);
+
+    
+    useEffect(() => {
+      setactionloading(true);
+      console.log("query is updated", queryState)
+    //   console.log("useEffect of uniqueCategories", uniqueCategories)
+        // const clothingId = uniqueCategories.find(cat => cat?.name === "Clothing")
+        // console.log("clothingID", clothingId)
+        // if(query?.category === '') {
+        //     console.log("hello its true",)
+        //     updateQuery("category", "61fea65fefd5350eeff1e561")
+        // }
+        fetchProducts();
     }, [queryState])
 
     useEffect(() => {
-      console.log("currentData",currentData)
+    //   console.log("currentData",currentData)
     }, [currentData])
     
 
@@ -92,23 +103,25 @@ const ShopGridStandard = ({location, products, queryState, resetQuery}) => {
         let sortedProducts = getSortedProducts(fetchedProducts, sortType, sortValue);
         const filterSortedProducts = getSortedProducts(sortedProducts, filterSortType, filterSortValue);
         sortedProducts = filterSortedProducts;
-        console.log("sortedProducts",sortedProducts)
+        // console.log("sortedProducts",sortedProducts)
         setSortedProducts(sortedProducts);
         setCurrentData(sortedProducts.slice(offset, offset + pageLimit));
-    }, [offset, products, sortType, sortValue, filterSortType, filterSortValue,fetchedProducts ]);
+    }, [offset, sortType, sortValue, filterSortType, filterSortValue, fetchedProducts ]);
 
     
     return (
         <Fragment>
             <MetaTags>
-                <title>Flone | Shop Page</title>
+                <title>BrandBucket | Shop Page</title>
                 <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
             </MetaTags>
 
             <BreadcrumbsItem to={process.env.PUBLIC_URL + '/'}>Home</BreadcrumbsItem>
             <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Shop</BreadcrumbsItem>
 
-            <LayoutOne headerTop="visible">
+            <LayoutOne 
+                headerContainerClass="container-fluid"
+                headerPaddingClass="header-padding-1">
                 {/* breadcrumb */}
                 <Breadcrumb />
 
@@ -117,7 +130,12 @@ const ShopGridStandard = ({location, products, queryState, resetQuery}) => {
                         <div className="row">
                             <div className="col-lg-3 order-2 order-lg-1">
                                 {/* shop sidebar */}
-                                <ShopSidebar products={fetchedProducts} getSortParams={getSortParams} handleQuery={handleQuery} sideSpaceClass="mr-30"/>
+                                <ShopSidebar 
+                                    products={fetchedProducts} 
+                                    getSortParams={getSortParams} 
+                                    handleQuery={handleQuery} 
+                                    sideSpaceClass="mr-30"
+                                />
                             </div>
                             <div className="col-lg-9 order-1 order-lg-2">
                                 {/* shop topbar default */}
@@ -156,13 +174,13 @@ ShopGridStandard.propTypes = {
 
 const mapStateToProps = state => {
     return{
-        products: state.productData.products,
+        // products: state.productData.products,
         queryState: state.query
     }
 }
 
 const mapDispatchToProps = {
-    resetQuery
+    updateQuery
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopGridStandard);

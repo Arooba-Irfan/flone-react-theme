@@ -2,7 +2,7 @@ import axios from "axios";
 import { actionTypes } from "../common/actionTypes";
 const SERVER_URL = "http://localhost:8000";
 
-export const login = (body, navigate) => async (dispatch) => {
+export const login = (body, navigate, addToast) => async (dispatch) => {
   console.log("LOGIN BODY", body);
   let response;
   try {
@@ -14,6 +14,9 @@ export const login = (body, navigate) => async (dispatch) => {
         response
       },
     });
+    if (addToast) {
+      addToast("SignedUp Successfully", { appearance: "success", autoDismiss: true });
+    }
     navigate();
   } catch (error) {
     console.log("error", error.message);
@@ -21,7 +24,7 @@ export const login = (body, navigate) => async (dispatch) => {
   return response;
 };
 
-export const register = (body, navigate) => async (dispatch) => {
+export const register = (body, navigate, addToast) => async (dispatch) => {
     console.log("REGISTER BODY", body);
     let response;
     try {
@@ -33,10 +36,30 @@ export const register = (body, navigate) => async (dispatch) => {
           response
         },
       });
+      if (addToast) {
+        addToast("SignedUp Successfully", { appearance: "success", autoDismiss: true });
+      }
       navigate();
     } catch (error) {
-      console.log("error", error.message);
+      if (addToast) {
+        addToast("Already Exist", { appearance: "warning", autoDismiss: true });
+      }
+        console.log("error", error.response.data.message);
     }
     return response;
   };
+
+export const logout = (addToast) => async (dispatch) => {
+  console.log("in acion logout")
+  try {
+    dispatch({
+      type: actionTypes.LOGOUT
+    })
+    if (addToast) {
+      addToast("LogOut Successfully", { appearance: "success", autoDismiss: true });
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
   

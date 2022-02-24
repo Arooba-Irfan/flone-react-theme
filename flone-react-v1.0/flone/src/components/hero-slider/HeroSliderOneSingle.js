@@ -6,12 +6,12 @@ import ShopImg from "./../../assets/images/shop-banner.jpg"
 const HeroSliderOneSingle = ({ data, sliderClassName }) => {
   return (
     <div
-      className={`single-slider slider-height-1 bg-purple ${
+      className={`single-slider slider-height-1 home-main-image ${
         sliderClassName ? sliderClassName : ""
       }`}
     >
       <div className="container">
-        <div className="row mb-40">
+        <div className="row mb-100">
           <div className="col-xl-6 col-lg-6 col-md-6 col-12 col-sm-6">
             <div className="slider-content slider-animated-1">
               <h3 className="animated">{data.title}</h3>
@@ -26,7 +26,7 @@ const HeroSliderOneSingle = ({ data, sliderClassName }) => {
               </div>
             </div>
           </div>
-          <div className="col-xl-6 col-lg-6 col-md-6 col-12 col-sm-6">
+          {/* <div className="col-xl-6 col-lg-6 col-md-6 col-12 col-sm-6">
             <div className="slider-single-img slider-animated-1">
               <img
                 className="animated img-fluid"
@@ -34,7 +34,7 @@ const HeroSliderOneSingle = ({ data, sliderClassName }) => {
                 alt=""
               />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

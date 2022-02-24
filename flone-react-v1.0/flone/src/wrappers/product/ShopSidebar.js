@@ -12,8 +12,10 @@ import ShopSize from "../../components/product/ShopSize";
 import Axios from "axios";
 import ShopBrands from "../../components/product/ShopBrands";
 import ShopPrice from "../../components/product/ShopPrice";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { updateQuery } from "../../redux/actions/queryActions";
 
-const ShopSidebar = ({ products, getSortParams, handleQuery, sideSpaceClass }) => {
+const ShopSidebar = ({ products, getSortParams, handleQuery, sideSpaceClass, updateQuery }) => {
   console.log("products", products)
   // const uniqueCategories = getUniqueCategories(products);
   const [isPriceQuery, setisPriceQuery] = useState(false);
@@ -22,6 +24,9 @@ const ShopSidebar = ({ products, getSortParams, handleQuery, sideSpaceClass }) =
   const [uniqueBrands, setuniqueBrands] = useState([])
   const uniqueColors = getUniqueColors(products);
   const uniqueSizes = getProductsUniqueSizes(products);
+
+  const query = useSelector(state => state.query)
+  const dispatch = useDispatch()
   
   useEffect(() => {
     console.log("useEffect price", isPriceQuery)
@@ -35,6 +40,17 @@ const ShopSidebar = ({ products, getSortParams, handleQuery, sideSpaceClass }) =
   useEffect(() => {
     console.log("useEffexct maxPrice", maxPrice)
   }, [maxPrice])
+
+  useEffect(() => {
+    console.log("useEffect of uniqueCategories", uniqueCategories)
+    const clothingId = uniqueCategories.find(cat => cat?.name === "Clothing")
+    console.log("clothingID", clothingId)
+    if(query?.category === "") {
+      console.log("hello its true",)
+      updateQuery("category", clothingId ? clothingId._id : "")
+    }
+  }, [uniqueCategories])
+  
   
 
   
@@ -104,4 +120,8 @@ ShopSidebar.propTypes = {
   sideSpaceClass: PropTypes.string
 };
 
-export default ShopSidebar;
+const mapDispatchToProps = {
+  updateQuery
+}
+
+export default connect(null, mapDispatchToProps)(ShopSidebar);

@@ -9,6 +9,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { connect } from "react-redux";
 import { login, register } from "../../redux/actions/authActions";
+import { useToasts } from "react-toast-notifications";
 
 const LoginRegister = ({ location, login, history, register }) => {
   const { pathname } = location;
@@ -18,7 +19,12 @@ const LoginRegister = ({ location, login, history, register }) => {
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
-
+  const [city, setCity] = useState("")
+  const [country, setCountry] = useState("")
+  const [state, setState] = useState("")
+  const [zipCode, setZipCode] = useState("")
+  const {addToast} = useToasts()
+  
   const Login = (e) => {
     e.preventDefault();
     console.log("user-name", email);
@@ -40,13 +46,18 @@ const LoginRegister = ({ location, login, history, register }) => {
   const Register = (e) => {
     e.preventDefault();
     const REGISTER_DATA = {
-      userName: userName,
+      userName,
       role: "buyer",
-      email: email,
-      phone: phoneNumber,
-      address: address,
-      password: password,
-      confirmPassword: confirmPassword,
+      email,
+      phone : phoneNumber,
+      address,
+      password,
+      confirmPassword,
+      city,
+      country,
+      state,
+      zipCode,
+      customerType: "regular"
     };
 
     console.log("REGISTER_DATA", REGISTER_DATA);
@@ -55,13 +66,13 @@ const LoginRegister = ({ location, login, history, register }) => {
       history.push({
         pathname: "/home-fashion",
       });
-    });
+    }, addToast);
   };
 
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Login</title>
+        <title>BrandBucket | Login</title>
         <meta
           name="description"
           content="Compare page of flone react minimalist eCommerce template."
@@ -71,7 +82,8 @@ const LoginRegister = ({ location, login, history, register }) => {
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Login Register
       </BreadcrumbsItem>
-      <LayoutOne headerTop="visible">
+      <LayoutOne headerContainerClass="container-fluid"
+        headerPaddingClass="header-padding-1">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="login-register-area pt-100 pb-100">
@@ -139,26 +151,54 @@ const LoginRegister = ({ location, login, history, register }) => {
                                 onChange={(e) => setUserName(e.target.value)}
                               />
                               <input
-                                name="user-email"
+                                name="email"
                                 placeholder="Email"
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                               />
                               <input
-                                name="user-email"
+                                name="phone"
                                 placeholder="Phone"
                                 type="text"
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
-                                maxLength={11}
+                                // maxLength={11}
                               />
                               <input
-                                name="user-email"
+                                name="address"
                                 placeholder="Address"
                                 type="text"
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
+                              />
+                              <input
+                                name="city"
+                                placeholder="City"
+                                type="text"
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                              />
+                              <input
+                                name="country"
+                                placeholder="Country"
+                                type="text"
+                                value={country}
+                                onChange={(e) => setCountry(e.target.value)}
+                              />
+                              <input
+                                name="state"
+                                placeholder="State"
+                                type="text"
+                                value={state}
+                                onChange={(e) => setState(e.target.value)}
+                              />
+                              <input
+                                name="zipCode"
+                                placeholder="ZipCode"
+                                type="text"
+                                value={zipCode}
+                                onChange={(e) => setZipCode(e.target.value)}
                               />
                               <input
                                 type="password"
@@ -168,7 +208,7 @@ const LoginRegister = ({ location, login, history, register }) => {
                                 onChange={(e) => setPassword(e.target.value)}
                               />
                               <input
-                                type="password"
+                                type="confirmPassword"
                                 name="user-password"
                                 placeholder="Confirm Password"
                                 value={confirmPassword}

@@ -4,7 +4,6 @@ import Swiper from "react-id-swiper";
 // import categoryData from "../../data/category/category-one.json";
 import CategoryOneSingle from "../../components/category/CategoryOneSingle.js";
 import SectionTitle from "../../components/section-title/SectionTitle";
-import Axios from "axios";
 
 const CategoryOneSlider = ({ 
   spaceTopClass,

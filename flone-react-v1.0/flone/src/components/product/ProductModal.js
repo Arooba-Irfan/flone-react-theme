@@ -7,7 +7,7 @@ import Rating from "./sub-components/ProductRating";
 import { connect } from "react-redux";
 
 function ProductModal(props) {
-  console.log("ProductModal", props);
+  // console.log("ProductModal", props);
   const { product } = props;
   const { currency } = props;
   const { discountedprice } = props;
@@ -163,7 +163,7 @@ function ProductModal(props) {
                       <span>Color</span>
                       <div className="pro-details-color-content">
                         {product.variation.map((single, key) => {
-                          console.log("single", single);
+                          // console.log("single", single);
                           return (
                             <label
                               className={`pro-details-color-content--single ${single.color}`}

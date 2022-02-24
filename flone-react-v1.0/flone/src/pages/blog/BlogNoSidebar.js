@@ -13,7 +13,7 @@ const BlogNoSidebar = ({ location }) => {
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Blog</title>
+        <title>BrandBucket | Blog</title>
         <meta
           name="description"
           content="Blog of flone react minimalist eCommerce template."

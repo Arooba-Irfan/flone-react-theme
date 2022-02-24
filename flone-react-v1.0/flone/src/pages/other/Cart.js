@@ -34,7 +34,7 @@ const Cart = ({
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Cart</title>
+        <title>BrandBucket | Cart</title>
         <meta
           name="description"
           content="Cart page of flone react minimalist eCommerce template."
@@ -46,7 +46,9 @@ const Cart = ({
         Cart
       </BreadcrumbsItem>
 
-      <LayoutOne headerTop="visible">
+      <LayoutOne 
+        headerContainerClass="container-fluid"
+        headerPaddingClass="header-padding-1">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="cart-main-area pt-90 pb-100">

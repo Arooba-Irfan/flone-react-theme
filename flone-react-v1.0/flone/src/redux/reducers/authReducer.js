@@ -11,7 +11,7 @@ export const authReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         user: {
-          ...payload.response.data,
+          ...payload.response.data.data.user,
         },
       };
 
@@ -23,7 +23,10 @@ export const authReducer = (state = initialState, { type, payload }) => {
           ...payload.response.data,
         },
       };
-
+    case actionTypes.LOGOUT:
+      return {
+        user: {}
+      }
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
@@ -9,80 +9,103 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import Axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
-import {removeAllFromCart} from "./../../redux/actions/cartActions"
+import { removeAllFromCart } from "./../../redux/actions/cartActions";
 import { useHistory } from "react-router-dom";
-const SERVER_URL = "http://localhost:8000"; 
+const SERVER_URL = "http://localhost:8000";
 
-const Checkout = ({ location, cartItems, currency, removeAllFromCart }) => {
-  console.log("cartItems",cartItems)
+const Checkout = ({ location, cartItems, currency, removeAllFromCart, userState }) => {
+  console.log("cartItems", cartItems);
   const { pathname } = location;
   let cartTotalPrice = 0;
+  
   const [user, setUser] = useState({
     userName: "",
     phone: "",
     email: "",
     address: "",
-    country :"",
+    country: "",
     city: "",
     state: "",
     zipCode: "",
-  })
+  });
 
-  const history = useHistory()
-  const [isCard, setIsCard] = useState(false)
-  const [paymentMethod, setpaymentMethod] = useState("cod")
-  const [actionLoading, setactionLoading] = useState(false)
+  useEffect(() => {
+    setUser({
+      userName: userState.userName,
+      phone:  userState.phone,
+      email:  userState.email,
+      address:  userState.email,
+      country:  userState.country,
+      city:  userState.city,
+      state:  userState.state,
+      zipCode:  userState.zipCode,
+      // userId: userState ? userState.userId: undefined
+    })
+  }, [userState])
   
+
+  const history = useHistory();
+  const [isCard, setIsCard] = useState(false);
+  const [paymentMethod, setpaymentMethod] = useState("cod");
+  const [actionLoading, setactionLoading] = useState(false);
+
   const handleDataInput = (e) => {
     setUser({
       ...user,
-      [e.target.name]:  e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handlePaymentInput = (e) => {
     // setIsCard(paymentMethod==="card")
-    console.log("changeinf payment", e.target.value)
-    setpaymentMethod(e.target.value)
-    setIsCard(e.target.value==="card")
-  }
+    console.log("changeinf payment", e.target.value);
+    setpaymentMethod(e.target.value);
+    setIsCard(e.target.value === "card");
+  };
 
   const handleSubmit = async () => {
-    console.log("submit ==> ", {...user, OrderItems:[...cartItems]})
+    // console.log("submit ==> ", { ...user, OrderItems: [...cartItems] });
     setactionLoading(true);
     let response;
     try {
-      response = await Axios.post(SERVER_URL + "/api/orders", 
-      {...user, OrderItems:[...cartItems],deliveryCharges:0,subTotal:cartTotalPrice.toFixed(2),orderDate: Date.now(), paymentMethod});
+      response = await Axios.post(SERVER_URL + "/api/orders", {
+        ...user,
+        OrderItems: [...cartItems],
+        deliveryCharges: 0,
+        subTotal: cartTotalPrice.toFixed(2),
+        orderDate: Date.now(),
+        paymentMethod,
+        userId: Object.keys(userState).length > 0 ? userState._id : undefined
+      });
       console.log("ORDER RESPONSE", response);
       removeAllFromCart();
       setactionLoading(false);
       alert("Order has been placed successfully");
-      history.push('/collection')
+      history.push("/collection");
     } catch (error) {
       console.log("error", error.message);
     }
-  }
+  };
 
   const makePayment = (token) => {
     const body = {
       amount: cartTotalPrice * 100,
-      token
-    }
+      token,
+    };
     Axios.post(SERVER_URL + "/api/payments", {
-      ...body
+      ...body,
     })
-    .then(response => {
-      console.log("response",response)
-      handleSubmit()
-    })
-    .catch(err => console.log(err))
-  }
+      .then((response) => {
+        console.log("response", response);
+        handleSubmit();
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Checkout</title>
+        <title>BrandBucket | Checkout</title>
         <meta
           name="description"
           content="Checkout page of flone react minimalist eCommerce template."
@@ -92,7 +115,9 @@ const Checkout = ({ location, cartItems, currency, removeAllFromCart }) => {
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
         Checkout
       </BreadcrumbsItem>
-      <LayoutOne headerTop="visible">
+      <LayoutOne 
+        headerContainerClass="container-fluid"
+        headerPaddingClass="header-padding-1">
         {/* breadcrumb */}
         <Breadcrumb />
         <div className="checkout-area pt-95 pb-100">
@@ -107,19 +132,37 @@ const Checkout = ({ location, cartItems, currency, removeAllFromCart }) => {
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>User Name</label>
-                          <input type="text" name="userName" onChange={handleDataInput}/>
+                          <input
+                            type="text"
+                            name="userName"
+                            onChange={handleDataInput}
+                            placeholder="User Name"
+                            value={user.userName}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Phone</label>
-                          <input type="text" name="phone" onChange={handleDataInput}/>
+                          <input
+                            type="text"
+                            name="phone"
+                            onChange={handleDataInput}
+                            placeholder="Phone"
+                            value={user.phone}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-12 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Email Address</label>
-                          <input type="text" name="email" onChange={handleDataInput}/>
+                          <input
+                            type="text"
+                            name="email"
+                            onChange={handleDataInput}
+                            placeholder="Email"
+                            value={user.email}
+                          />
                         </div>
                       </div>
                       {/* <div className="col-lg-6 col-md-6">
@@ -137,13 +180,18 @@ const Checkout = ({ location, cartItems, currency, removeAllFromCart }) => {
                       <div className="col-lg-12">
                         <div className="billing-select mb-20">
                           <label>Country</label>
-                          <select name="country" onChange={handleDataInput}>
-                            <option value= {""}>Select a country</option>
-                            <option value= {"pak"}>Pakistan</option>
-                            <option value= {"canada"}>Canada</option>
-                            <option value= {"uk"}>UK</option>
-                            <option value= {"usa"}>USA</option>
-                            <option value= {"uae"}>UAE</option>
+                          <select
+                            name="country"
+                            onChange={handleDataInput}
+                            placeholder="Country"
+                            value={user.country}
+                          >
+                            <option value={""}>Select a country</option>
+                            <option value={"pak"}>Pakistan</option>
+                            <option value={"canada"}>Canada</option>
+                            <option value={"uk"}>UK</option>
+                            <option value={"usa"}>USA</option>
+                            <option value={"uae"}>UAE</option>
                           </select>
                         </div>
                       </div>
@@ -152,10 +200,11 @@ const Checkout = ({ location, cartItems, currency, removeAllFromCart }) => {
                           <label>Street Address</label>
                           <input
                             className="billing-address"
-                            placeholder="House number and street name"
+                            placeholder="Address"
                             type="text"
                             name="address"
                             onChange={handleDataInput}
+                            value={user.address}
                           />
                           {/* <input
                             placeholder="Apartment, suite, unit etc."
@@ -166,26 +215,45 @@ const Checkout = ({ location, cartItems, currency, removeAllFromCart }) => {
                       <div className="col-lg-12">
                         <div className="billing-info mb-20">
                           <label>Town / City</label>
-                          <input type="text" name="city" onChange={handleDataInput}/>
+                          <input
+                            type="text"
+                            name="city"
+                            onChange={handleDataInput}
+                            placeholder="City"
+                            value={user.city}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>State / Province</label>
-                          <input type="text" name="state" onChange={handleDataInput}/>
+                          <input
+                            type="text"
+                            name="state"
+                            onChange={handleDataInput}
+                            placeholder="State/Province"
+                            value={user.state}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Postcode / ZIP</label>
-                          <input type="text" name="zipCode" onChange={handleDataInput}/>
+                          <input
+                            type="text"
+                            name="zipCode"
+                            onChange={handleDataInput}
+                            placeholder="ZipCode"
+                            value={user.zipCode}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Payment Methods</label>
-                          <div  class="w-100 d-flex align-items-center">
-                            <input className="w-25" 
+                          <div className="w-100 d-flex align-items-center">
+                            <input
+                              className="w-25"
                               type="radio"
                               value="cod"
                               checked={paymentMethod === "cod"}
@@ -193,8 +261,9 @@ const Checkout = ({ location, cartItems, currency, removeAllFromCart }) => {
                             />
                             <span>Charge ON Delivery</span>
                           </div>
-                          <div  class="w-100 d-flex align-items-center">
-                            <input className="w-25" 
+                          <div class="w-100 d-flex align-items-center">
+                            <input
+                              className="w-25"
                               type="radio"
                               value="card"
                               checked={paymentMethod === "card"}
@@ -205,18 +274,6 @@ const Checkout = ({ location, cartItems, currency, removeAllFromCart }) => {
                         </div>
                       </div>
                     </div>
-
-                    {/* <div className="additional-info-wrap">
-                      <h4>Additional information</h4>
-                      <div className="additional-info">
-                        <label>Order notes</label>
-                        <textarea
-                          placeholder="Notes about your order, e.g. special notes for delivery. "
-                          name="message"
-                          defaultValue={""}
-                        />
-                      </div>
-                    </div> */}
                   </div>
                 </div>
 
@@ -291,27 +348,22 @@ const Checkout = ({ location, cartItems, currency, removeAllFromCart }) => {
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
-                      {
-                        isCard ?
-                        <StripeCheckout 
+                      {isCard ? (
+                        <StripeCheckout
                           stripeKey="pk_test_51KUJs3J2BxS3GLbaKEGxVhPx7NaK6kWs3vuBn75BCeq7Z9jSzAzwf0nf6yNQslbuYIjCVjEj2eGtLctiKNQMRJeO00MWNgQJXM"
                           token={makePayment}
                           amount={cartTotalPrice}
                           name="payment"
                         >
-                         <div className="place-order mt-25">
-                          <button className="btn-hover"> Place Order</button>
-                         </div>
-                        </StripeCheckout> 
-                        :<button 
-                          className="btn-hover"
-                          onClick={handleSubmit}
-                        >
+                          <div className="place-order mt-25">
+                            <button className="btn-hover"> Place Order</button>
+                          </div>
+                        </StripeCheckout>
+                      ) : (
+                        <button className="btn-hover" onClick={handleSubmit}>
                           Place Order
                         </button>
-                      }
-                      
-                      
+                      )}
                     </div>
                   </div>
                 </div>
@@ -343,18 +395,19 @@ const Checkout = ({ location, cartItems, currency, removeAllFromCart }) => {
 Checkout.propTypes = {
   cartItems: PropTypes.array,
   currency: PropTypes.object,
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
-    currency: state.currencyData
+    currency: state.currencyData,
+    userState: state.auth.user
   };
 };
 
 const mapDispatchToProps = {
-  removeAllFromCart
-}
+  removeAllFromCart,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
