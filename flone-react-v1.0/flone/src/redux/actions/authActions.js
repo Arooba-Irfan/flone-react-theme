@@ -1,6 +1,6 @@
 import axios from "axios";
 import { actionTypes } from "../common/actionTypes";
-const SERVER_URL = "http://localhost:8000";
+const SERVER_URL = "https://brand-bucket.herokuapp.com";
 
 export const login = (body, navigate, addToast) => async (dispatch) => {
   console.log("LOGIN BODY", body);

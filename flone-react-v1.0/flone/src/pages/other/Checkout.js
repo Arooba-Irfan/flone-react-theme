@@ -11,7 +11,7 @@ import Axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
 import { removeAllFromCart } from "./../../redux/actions/cartActions";
 import { useHistory } from "react-router-dom";
-const SERVER_URL = "http://localhost:8000";
+const SERVER_URL = "https://brand-bucket.herokuapp.com";
 
 const Checkout = ({ location, cartItems, currency, removeAllFromCart, userState }) => {
   console.log("cartItems", cartItems);

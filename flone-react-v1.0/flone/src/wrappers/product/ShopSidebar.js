@@ -55,12 +55,12 @@ const ShopSidebar = ({ products, getSortParams, handleQuery, sideSpaceClass, upd
 
   
   useEffect(() => {
-    Axios.get("http://localhost:8000/api/categories")
+    Axios.get("https://brand-bucket.herokuapp.com/api/categories")
       .then(res => {
         setuniqueCategories([...res.data.data.categories])})
       .catch(err => console.log("Error", err))
     
-      Axios.get("http://localhost:8000/api/brands")
+      Axios.get("https://brand-bucket.herokuapp.com/api/brands")
     .then(res => {
       // console.log(res.data.data.categories)
       setuniqueBrands([...res.data.data.brands])})

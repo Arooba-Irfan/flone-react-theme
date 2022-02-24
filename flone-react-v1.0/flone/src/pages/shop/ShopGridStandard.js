@@ -59,7 +59,7 @@ const ShopGridStandard = ({location, queryState, updateQuery}) => {
         console.log("fetchProducts", queryState)
         axios
           .get(
-            "http://localhost:8000/api/products",{
+            "https://brand-bucket.herokuapp.com/api/products",{
                 params: {...queryState}
             }
           )

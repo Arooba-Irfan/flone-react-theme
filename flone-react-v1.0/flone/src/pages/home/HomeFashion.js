@@ -2,9 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import MetaTags from "react-meta-tags";
 import LayoutOne from "../../layouts/LayoutOne";
 import HeroSliderOne from "../../wrappers/hero-slider/HeroSliderOne";
-import FeatureIcon from "../../wrappers/feature-icon/FeatureIcon";
-import TabProduct from "../../wrappers/product/TabProduct";
-import BlogFeatured from "../../wrappers/blog-featured/BlogFeatured";
 import axios from "axios";
 import CategoryOneSlider from "../../wrappers/category/CategoryOneSlider";
 
@@ -14,13 +11,13 @@ const HomeFashion = () => {
   const [brandData, setBrandData] = useState([]);
 
   const fetchData = () => {
-    axios.get("http://localhost:8000/api/categories").then(res => {
+    axios.get("https://brand-bucket.herokuapp.com/api/categories").then(res => {
       console.log(res)
       setCategoryData(res.data.data.categories)
     }).catch(err => console.log(err))
 
     //fetch Brands
-    axios.get("http://localhost:8000/api/brands").then(res => {
+    axios.get("https://brand-bucket.herokuapp.com/api/brands").then(res => {
       console.log(res)
       setBrandData([...res.data.data.brands])
     }).catch(err => console.log(err))

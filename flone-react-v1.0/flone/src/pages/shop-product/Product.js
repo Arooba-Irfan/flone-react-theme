@@ -22,7 +22,7 @@ const Product = ({
   const [product, setProduct] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/product/" + id).then((response) => {
+    axios.get("https://brand-bucket.herokuapp.com/api/product/" + id).then((response) => {
       console.log("response", response.data.data.product);
       setProduct(response.data.data.product);
     });
